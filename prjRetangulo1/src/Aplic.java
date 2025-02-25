@@ -20,6 +20,8 @@ public class Aplic {
         System.out.println("Medida do perímetro: " + objRet.calcPer());
         System.out.println("Medida da diagonal: " + objRet.calcDiag());
         
+        System.out.println("\n");
+        
         // Exemplo 2
         objRet.setAltura(7.0);
         objRet.setBase(5.0);
