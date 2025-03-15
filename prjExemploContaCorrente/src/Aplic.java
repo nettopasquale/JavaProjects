@@ -43,8 +43,8 @@ public class Aplic {
                     }
                     else{
                         contaCorrente.sacar(saque);
+                        System.out.println("Valor sacado com sucesso!");
                     }
-                    System.out.println("Valor sacado com sucesso!");
                     break;
                     
                     case 3: 
