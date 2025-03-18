@@ -5,8 +5,8 @@ public class FuncionarioHorista extends Funcionario {
     private double valHorTrab;
     private int qtdeHorTrab;
 
-    public FuncionarioHorista(int r, String n, String dtAdm, String c, double vht) {
-        super(r, n, dtAdm, c);
+    public FuncionarioHorista(int r, String n, String dtAdm, double vht) {
+        super(r, n, dtAdm);
         this.valHorTrab = vht;
     }
 
@@ -24,8 +24,8 @@ public class FuncionarioHorista extends Funcionario {
         return ((calcSalBruto() + calcGratificacao()) - calcDesconto());
     }
     
-    public void setQtdeHorTrab(int qtdeHT){
-        qtdeHorTrab = qtdeHT;
+    public void setQtdeHorTrab(int qht){
+        qtdeHorTrab = qht;
     }
     
 }

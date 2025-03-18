@@ -1,8 +1,4 @@
 
-import fatec.poo.model.FuncionarioHorista;
-import fatec.poo.model.FuncionarioMensalista;
-
-
 public class Aplic {
 
     public static void main(String[] args) {

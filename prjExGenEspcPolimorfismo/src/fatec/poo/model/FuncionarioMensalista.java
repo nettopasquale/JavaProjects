@@ -4,8 +4,8 @@ package fatec.poo.model;
 public class FuncionarioMensalista extends Funcionario {
     private double valSalMin, numSalMin;
 
-    public FuncionarioMensalista(int r, String n, String dtAdm, String c,  double vsm) {
-        super(r, n, dtAdm, c);
+    public FuncionarioMensalista(int r, String n, String dtAdm,  double vsm) {
+        super(r, n, dtAdm);
         this.valSalMin = vsm;
     }
 
