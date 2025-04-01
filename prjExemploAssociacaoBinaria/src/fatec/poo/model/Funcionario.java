@@ -6,6 +6,7 @@ abstract public class Funcionario {
     private String dtAdmissao;  
     private String cargo;
     private Departamento departamento; //definicao ponteiro - multiplicidade 1
+    private Projeto projeto; //definicao ponteiro - multiplicidade 1
     
     public Funcionario(int r, String n, String dtAdm){
         registro = r;
@@ -35,8 +36,16 @@ abstract public class Funcionario {
     }
 
     //tem como parametro de entrada o endereço de um objeto da classe depto
-    public void setDepartamento(Departamento departamento) {
-        this.departamento = departamento;
+    public void setDepartamento(Departamento d) {
+        departamento = d;
+    }
+
+    public Projeto getProjeto() {
+        return projeto;
+    }
+
+    public void setProjeto(Projeto p) {
+        this.projeto = p;
     }
     
     public abstract double calcSalBruto();
