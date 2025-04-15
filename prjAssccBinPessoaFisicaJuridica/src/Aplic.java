@@ -10,7 +10,7 @@ public class Aplic {
     public static void main(String[] args) {
         PessoaFisica  pessoaF;
         PessoaJuridica pessoaJ;
-        PedidoCompra[] cadPedido = new PedidoCompra[10];
+        PedidoCompra cadPedido;
         
         Scanner entrada = new Scanner(System.in);
         DecimalFormat df = new DecimalFormat("#,##0.00");
@@ -57,7 +57,7 @@ public class Aplic {
         
         while(compraPessoaF > 0 || compraPessoaJ > 0){
             pessoaF.addCompras(compraPessoaF);
-            //pessoaF.addPedidos(0);
+            
             pessoaJ.addCompras(compraPessoaJ);
             
             System.out.println("Por favor informe a compra da pessoa Física.");
@@ -70,6 +70,8 @@ public class Aplic {
             compraPessoaJ = entrada.nextDouble();
             
         }
+        
+        
         
         //Pessoa Física
         System.out.println("Pessoa Fisica: ");

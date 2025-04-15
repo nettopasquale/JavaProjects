@@ -1,12 +1,11 @@
-
 package fatec.poo.model;
-
 import java.time.Year;
+import java.util.ArrayList;
 
 public class PessoaFisica extends Pessoa{
     private String cpf;
     private double base;
-
+    
     public PessoaFisica(String cpf, String n, int anoInscr) {
         super(n, anoInscr);
         this.cpf = cpf;
@@ -34,4 +33,5 @@ public class PessoaFisica extends Pessoa{
     public double getBase(){
         return this.base;
     }
+
 }
