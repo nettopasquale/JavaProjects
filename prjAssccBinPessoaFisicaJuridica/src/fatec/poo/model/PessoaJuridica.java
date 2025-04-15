@@ -1,7 +1,7 @@
 
 package fatec.poo.model;
-
 import java.time.Year;
+import java.util.ArrayList;
 
 public class PessoaJuridica extends Pessoa {
     private String cgc;
@@ -30,5 +30,5 @@ public class PessoaJuridica extends Pessoa {
     public double getTaxaIncentivo(){
         return this.taxaIncentivo;
     }
-    
+
 }

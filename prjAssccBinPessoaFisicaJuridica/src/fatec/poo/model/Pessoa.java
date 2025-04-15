@@ -1,17 +1,18 @@
 
 package fatec.poo.model;
+import java.util.ArrayList;
+
 public abstract class Pessoa {
     
     private String nome;
     private int anoInscricao, numPed;
     private double totalCompras;
-    private PedidoCompra[] cadPedidos;
+    private ArrayList<PedidoCompra> cadCompras;
     
     public Pessoa(String n, int anoInscr){
         this.nome = n;
         this.anoInscricao = anoInscr;
-        cadPedidos = new PedidoCompra[10];
-        numPed = 0;
+        cadCompras = new ArrayList<>();
     }
     
     public abstract double calcBonus(int anoInscr);
@@ -32,8 +33,8 @@ public abstract class Pessoa {
         return this.totalCompras;
     }
     
-    public void addPedidos(PedidoCompra pc){
-        cadPedidos[numPed] = pc;
+    public void addPedidoCompras(PedidoCompra pC){
+        cadCompras.add(pC);
     }
     
     
