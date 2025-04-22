@@ -40,6 +40,7 @@ public class Projeto {
     }
     public void addFuncionario(Funcionario f){ 
         funcionarios.add(f);
+        f.setProjeto(this);
     }
     public void listarFuncionarios(){
         System.out.println("\n\nCódigo: " + codigo);
