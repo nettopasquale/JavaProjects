@@ -74,6 +74,12 @@ public class GUIVenda extends javax.swing.JFrame {
         });
 
         btnLimpar.setText("Limpar");
+        btnLimpar.setEnabled(false);
+        btnLimpar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimparActionPerformed(evt);
+            }
+        });
 
         btnSair.setText("Sair");
         btnSair.addActionListener(new java.awt.event.ActionListener() {
@@ -186,11 +192,28 @@ public class GUIVenda extends javax.swing.JFrame {
         valAPagar = valCompra - desconto;
         
         lblValorAPagar.setText(String.valueOf(valAPagar));
+        
+        btnCalcular.setEnabled(false);
+        btnLimpar.setEnabled(true);
     }//GEN-LAST:event_btnCalcularActionPerformed
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
         dispose();
     }//GEN-LAST:event_btnSairActionPerformed
+
+    private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
+        txtCodigo.setText(null);
+        txtDescricao.setText(null);
+        txtPrecoUnitario.setText(null);
+        txtQtd.setText(null);
+        lblDesconto.setText(null);
+        lblValorCompra.setText(null);
+        lblValorAPagar.setText(null);
+        
+        txtCodigo.requestFocus();
+        btnCalcular.setEnabled(true);
+        btnLimpar.setEnabled(false);
+    }//GEN-LAST:event_btnLimparActionPerformed
 
     /**
      * @param args the command line arguments

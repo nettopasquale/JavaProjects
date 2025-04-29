@@ -63,9 +63,9 @@ public class GUIAluno extends javax.swing.JFrame {
             }
         });
 
-        lblMedia.setBorder(new javax.swing.border.SoftBevelBorder(1));
+        lblMedia.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
-        lblSituacao.setBorder(new javax.swing.border.SoftBevelBorder(1));
+        lblSituacao.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         btnCalcular.setText("Calcular");
         btnCalcular.addActionListener(new java.awt.event.ActionListener() {
@@ -75,6 +75,12 @@ public class GUIAluno extends javax.swing.JFrame {
         });
 
         btnLimpar.setText("Limpar");
+        btnLimpar.setEnabled(false);
+        btnLimpar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimparActionPerformed(evt);
+            }
+        });
 
         btnSair.setText("Sair");
         btnSair.addActionListener(new java.awt.event.ActionListener() {
@@ -179,7 +185,23 @@ public class GUIAluno extends javax.swing.JFrame {
         else{
             lblSituacao.setText("Reprovado");
         }
+        
+        btnCalcular.setEnabled(false);
+        btnLimpar.setEnabled(true);
     }//GEN-LAST:event_btnCalcularActionPerformed
+
+    private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
+        txtRA.setText(""); // forma 1 de limpar o campo de texto
+        txtNome.setText(null); // forma 2 de limpar o campo de texto
+        txtNota1.setText(null);
+        txtNota2.setText(null);
+        lblMedia.setText(null);
+        lblSituacao.setText(null);
+        
+        txtRA.requestFocus(); //volta o foco na GUI para o campo de texto;
+        btnCalcular.setEnabled(true);
+        btnLimpar.setEnabled(false);
+    }//GEN-LAST:event_btnLimparActionPerformed
 
     /**
      * @param args the command line arguments
