@@ -30,6 +30,8 @@ public class GuiMenu extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenuObjetos = new javax.swing.JMenu();
         jMenuItemRetangulo = new javax.swing.JMenuItem();
+        jMenuCirculo = new javax.swing.JMenuItem();
+        jMenuContaCorrente = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Gui Menu");
@@ -43,6 +45,22 @@ public class GuiMenu extends javax.swing.JFrame {
             }
         });
         jMenuObjetos.add(jMenuItemRetangulo);
+
+        jMenuCirculo.setText("Circulo");
+        jMenuCirculo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuCirculoActionPerformed(evt);
+            }
+        });
+        jMenuObjetos.add(jMenuCirculo);
+
+        jMenuContaCorrente.setText("Conta Corrente");
+        jMenuContaCorrente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuContaCorrenteActionPerformed(evt);
+            }
+        });
+        jMenuObjetos.add(jMenuContaCorrente);
 
         jMenuBar1.add(jMenuObjetos);
 
@@ -69,6 +87,22 @@ public class GuiMenu extends javax.swing.JFrame {
        
        guiRetangulo.setVisible(true);
     }//GEN-LAST:event_jMenuItemRetanguloActionPerformed
+
+    private void jMenuCirculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuCirculoActionPerformed
+        GuiCirculo guiCirculo;
+        
+        guiCirculo = new GuiCirculo();
+        
+        guiCirculo.setVisible(true);
+    }//GEN-LAST:event_jMenuCirculoActionPerformed
+
+    private void jMenuContaCorrenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuContaCorrenteActionPerformed
+        GUIContaCorrente guiContaCorrente;
+        
+        guiContaCorrente = new GUIContaCorrente();
+        
+        guiContaCorrente.setVisible(true);
+    }//GEN-LAST:event_jMenuContaCorrenteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -107,6 +141,8 @@ public class GuiMenu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuCirculo;
+    private javax.swing.JMenuItem jMenuContaCorrente;
     private javax.swing.JMenuItem jMenuItemRetangulo;
     private javax.swing.JMenu jMenuObjetos;
     // End of variables declaration//GEN-END:variables
