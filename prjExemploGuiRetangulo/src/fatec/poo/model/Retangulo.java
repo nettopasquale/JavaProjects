@@ -3,6 +3,11 @@ package fatec.poo.model;
 public class Retangulo {
     private double altura;
     private double base;
+    private String unidadeMedida;
+
+    public Retangulo(String unidadeMedida) {
+        this.unidadeMedida = unidadeMedida;
+    }
     
     public void setAltura(double a){
         altura = a;
@@ -16,6 +21,10 @@ public class Retangulo {
     }
     public double getBase(){
         return(base);
+    }
+
+    public String getUnidadeMedida() {
+        return unidadeMedida;
     }
     
     public double calcArea(){

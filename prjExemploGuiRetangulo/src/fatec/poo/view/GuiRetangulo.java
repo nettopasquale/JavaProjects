@@ -5,6 +5,9 @@
  */
 package fatec.poo.view;
 
+import fatec.poo.model.Retangulo;
+import java.text.DecimalFormat;
+
 /**
  *
  * @author Fatec
@@ -37,6 +40,8 @@ public class GuiRetangulo extends javax.swing.JFrame {
         lblArea = new javax.swing.JLabel();
         lblPerimetro = new javax.swing.JLabel();
         lblDiagonal = new javax.swing.JLabel();
+        txtMedida = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
         btnApontar = new javax.swing.JButton();
         btnConsultar = new javax.swing.JButton();
         btnSair = new javax.swing.JButton();
@@ -54,11 +59,13 @@ public class GuiRetangulo extends javax.swing.JFrame {
 
         jLabel5.setText("Diagonal");
 
-        lblArea.setBorder(new javax.swing.border.SoftBevelBorder(1));
+        lblArea.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
-        lblPerimetro.setBorder(new javax.swing.border.SoftBevelBorder(1));
+        lblPerimetro.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
-        lblDiagonal.setBorder(new javax.swing.border.SoftBevelBorder(1));
+        lblDiagonal.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+
+        jLabel6.setText("Unidade Medida");
 
         btnApontar.setText("Apontar");
         btnApontar.addActionListener(new java.awt.event.ActionListener() {
@@ -69,6 +76,11 @@ public class GuiRetangulo extends javax.swing.JFrame {
 
         btnConsultar.setText("Consultar");
         btnConsultar.setEnabled(false);
+        btnConsultar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConsultarActionPerformed(evt);
+            }
+        });
 
         btnSair.setText("Sair");
         btnSair.addActionListener(new java.awt.event.ActionListener() {
@@ -82,38 +94,48 @@ public class GuiRetangulo extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel1))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtAltura)
-                            .addComponent(txtBase)
-                            .addComponent(lblArea, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblPerimetro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblDiagonal, javax.swing.GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(50, 50, 50)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(52, 52, 52)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtBase)
+                                    .addComponent(lblArea, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(lblPerimetro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(txtAltura, javax.swing.GroupLayout.DEFAULT_SIZE, 91, Short.MAX_VALUE)
+                                    .addComponent(lblDiagonal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addGap(9, 9, 9)
+                                .addComponent(txtMedida, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(48, 48, 48)
                         .addComponent(btnApontar)
                         .addGap(18, 18, 18)
-                        .addComponent(btnConsultar)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnSair)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(btnConsultar)))
+                .addGap(18, 18, 18)
+                .addComponent(btnSair)
+                .addContainerGap(49, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnApontar, btnConsultar, btnSair});
 
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(44, 44, 44)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(24, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(txtMedida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtAltura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -130,15 +152,15 @@ public class GuiRetangulo extends javax.swing.JFrame {
                     .addComponent(jLabel4)
                     .addComponent(lblPerimetro, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(lblDiagonal, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblDiagonal, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
                 .addGap(36, 36, 36)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnApontar)
                     .addComponent(btnConsultar)
                     .addComponent(btnSair))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(26, 26, 26))
         );
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnApontar, btnConsultar, btnSair});
@@ -151,8 +173,30 @@ public class GuiRetangulo extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSairActionPerformed
 
     private void btnApontarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApontarActionPerformed
-        // TODO add your handling code here:
+
+        double altura, base;
+        
+        altura = Double.parseDouble(txtAltura.getText());
+        base = Double.parseDouble(txtBase.getText());
+        objRetangulo = new Retangulo(txtMedida.getText());
+        
+        objRetangulo.setAltura(altura);
+        objRetangulo.setBase(base);
+        
+        btnApontar.setEnabled(false);
+        txtAltura.setEnabled(false);
+        txtBase.setEnabled(false);
+        btnConsultar.setEnabled(true);
     }//GEN-LAST:event_btnApontarActionPerformed
+
+    private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
+        df = new DecimalFormat("#.00");
+        
+        lblArea.setText(String.valueOf(df.format(objRetangulo.calcArea())) + objRetangulo.getUnidadeMedida() + "²");
+        lblDiagonal.setText(String.valueOf(df.format(objRetangulo.calcDiagonal())) + objRetangulo.getUnidadeMedida());
+        lblPerimetro.setText(String.valueOf(df.format(objRetangulo.calcPerimetro())) + objRetangulo.getUnidadeMedida());
+        btnConsultar.setEnabled(false);
+    }//GEN-LAST:event_btnConsultarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -188,7 +232,8 @@ public class GuiRetangulo extends javax.swing.JFrame {
             }
         });
     }
-
+    private Retangulo objRetangulo;
+    DecimalFormat df; 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnApontar;
     private javax.swing.JButton btnConsultar;
@@ -198,10 +243,12 @@ public class GuiRetangulo extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel lblArea;
     private javax.swing.JLabel lblDiagonal;
     private javax.swing.JLabel lblPerimetro;
     private javax.swing.JTextField txtAltura;
     private javax.swing.JTextField txtBase;
+    private javax.swing.JTextField txtMedida;
     // End of variables declaration//GEN-END:variables
 }

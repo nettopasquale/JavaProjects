@@ -146,6 +146,9 @@ public class GUIContaCorrente extends javax.swing.JFrame {
         objContaCorrente.depositar(Double.parseDouble(txtValor.getText()));
         
         lblSaldo.setText(String.valueOf(df.format(objContaCorrente.getSaldo())));
+        
+        txtValor.setText(null);
+        txtValor.requestFocus();
     }//GEN-LAST:event_btnDepositarActionPerformed
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
@@ -164,6 +167,8 @@ public class GUIContaCorrente extends javax.swing.JFrame {
         btnDepositar.setEnabled(true);
         btnSacar.setEnabled(true);
         btnCriarConta.setEnabled(false);
+        txtValor.setText(null);
+        txtValor.requestFocus();
     }//GEN-LAST:event_btnCriarContaActionPerformed
 
     private void btnSacarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSacarActionPerformed
@@ -172,8 +177,13 @@ public class GUIContaCorrente extends javax.swing.JFrame {
         if(objContaCorrente.getSaldo() >= Double.parseDouble(txtValor.getText())){
             objContaCorrente.sacar(Double.parseDouble(txtValor.getText()));
             lblSaldo.setText(String.valueOf(df.format(objContaCorrente.getSaldo())));
+            txtValor.setText(null); 
+            txtValor.requestFocus(); 
+            
         }else{
-            JOptionPane.showMessageDialog(rootPane, btnSair);
+            JOptionPane.showMessageDialog(null, "Saldo Insuficiente");
+            txtValor.requestFocus();
+            txtValor.selectAll();
         }
         
         

@@ -134,7 +134,6 @@
     <Component class="javax.swing.JButton" name="btnCriarConta">
       <Properties>
         <Property name="text" type="java.lang.String" value="Criar Conta"/>
-        <Property name="actionCommand" type="java.lang.String" value="Criar Conta"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCriarContaActionPerformed"/>

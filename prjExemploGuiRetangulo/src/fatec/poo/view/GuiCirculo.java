@@ -154,16 +154,18 @@ public class GuiCirculo extends javax.swing.JFrame {
     private void btnApontarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApontarActionPerformed
         objCirculo = new Circulo(txtMedida.getText());
         objCirculo.setRaio(Double.parseDouble(txtRaio.getText()));
+        
         btnApontar.setEnabled(false);
         txtMedida.setEnabled(false);
         txtRaio.setEnabled(false);
+        btnConsultar.setEnabled(true);
     }//GEN-LAST:event_btnApontarActionPerformed
 
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
-        DecimalFormat number = new DecimalFormat("#.00");
-        lblArea.setText(String.valueOf(objCirculo.calcArea()));
-        lblPerimetro.setText(String.valueOf(number.format(objCirculo.calcPerimetro() + objCirculo.getUnidadeMedida())));
-        lblDiametro.setText(String.valueOf(number.format(objCirculo.getRaio() *2) + objCirculo.getUnidadeMedida()));
+        df = new DecimalFormat("#.00");
+        lblArea.setText(String.valueOf(df.format(objCirculo.calcArea())) + objCirculo.getUnidadeMedida() +"²");
+        lblPerimetro.setText(String.valueOf(df.format(objCirculo.calcPerimetro()))+ objCirculo.getUnidadeMedida());
+        lblDiametro.setText(String.valueOf(df.format(objCirculo.getRaio() *2)) + objCirculo.getUnidadeMedida());
         btnConsultar.setEnabled(false) ;
     }//GEN-LAST:event_btnConsultarActionPerformed
 
@@ -202,6 +204,7 @@ public class GuiCirculo extends javax.swing.JFrame {
         });
     }
     private Circulo objCirculo;
+    DecimalFormat df;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnApontar;
     private javax.swing.JButton btnConsultar;
