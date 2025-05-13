@@ -205,9 +205,10 @@ public class GuiAluno extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
        prepCon = new PreparaConexao("BD2321003","BD2321003"); // FATEC
-       //prepCon = new PreparaConexao("BD2321003","BD2321003"); -- EM CASA
+       //prepCon = new PreparaConexao("adm","adm1992"); -- EM CASA
        prepCon.setDriver("oracle.jdbc.driver.OracleDriver");
-       prepCon.setConnectionString("jdbc:oracle:thin:@192.168.1.6:1521:xe");       
+       //@ ip:porta pode ser alterado dependendo da conexão
+       prepCon.setConnectionString("jdbc:oracle:thin:@192.168.1.6:1521:xe");  // xe pode ser alterado dependendo da conexão     
        daoAluno = new DaoAluno(prepCon.abrirConexao());
     }//GEN-LAST:event_formWindowOpened
 
