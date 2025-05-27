@@ -58,8 +58,13 @@ public class Registro {
         
         this.quarto = quarto;
         
-        quarto.reservar();
-
+        if(quarto.getSituacao() == false){
+            quarto.reservar();
+            System.out.println("Quarto reservado para o hospede " + hospede.getNome());
+        }
+        else{
+            System.out.println("Nenhum quarto disponivel.");
+        }
     }
     
     public double liberarQuarto(){
