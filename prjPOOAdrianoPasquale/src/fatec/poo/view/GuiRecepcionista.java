@@ -4,6 +4,10 @@
  */
 package fatec.poo.view;
 
+import fatec.poo.control.PreparaConexao;
+import fatec.poo.model.Recepcionista;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Pasquale
@@ -45,7 +49,15 @@ public class GuiRecepcionista extends javax.swing.JFrame {
         lblEndereco = new javax.swing.JLabel();
         lblTelefone = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         btnInserir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/add.png"))); // NOI18N
         btnInserir.setText("Inserir");
@@ -223,39 +235,20 @@ public class GuiRecepcionista extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirActionPerformed
-        funcHor = new FuncionarioHorista(Integer.parseInt(txtRegistro.getText()),
-            txtNome.getText(),
-            txtDtAdmissao.getText(),
-            Double.parseDouble(txtValHorTrab.getText()));
-        funcHor.setCargo(txtCargo.getText());
-        if (rbtTarde.isSelected()){
-            funcHor.setSexo("F");
-        }else{
-            funcHor.setSexo("M");
-        }
+       //
 
-        //estabelece a associação binária bidirecional entre
-        //funcionario horista e departamento
-        departamentos.get(cbxDepartamentos.getSelectedIndex()).addFuncionario(funcHor);
-
-        daoFuncHor.inserir(funcHor);
-
-        txtRegistro.setText(null);
-        txtNome.setText(null);
+        txtReg.setText(null);
+        lblNome.setText(null);
         rbtTarde.setSelected(true);
-        txtDtAdmissao.setText(null);
-        txtCargo.setText(null);
-        txtValHorTrab.setText(null);
-        cbxDepartamentos.setSelectedIndex(0);
-        txtRegistro.setEnabled(true);
-        txtNome.setEnabled(false);
+        lblEndereco.setText(null);
+        lblTelefone.setText(null);
+        txtReg.setEnabled(true);
+        lblNome.setEnabled(false);
         rbtTarde.setEnabled(false);
         rbtManha.setEnabled(false);
-        txtDtAdmissao.setEnabled(false);
-        txtCargo.setEnabled(false);
-        txtValHorTrab.setEnabled(false);
-        cbxDepartamentos.setEnabled(false);
-        txtRegistro.requestFocus();
+        lblEndereco.setEnabled(false);
+        lblTelefone.setEnabled(false);
+        txtReg.requestFocus();
 
         btnConsultar.setEnabled(true);
         btnInserir.setEnabled(false);
@@ -264,19 +257,18 @@ public class GuiRecepcionista extends javax.swing.JFrame {
     }//GEN-LAST:event_btnInserirActionPerformed
 
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
-        funcHor = null;
-        funcHor = daoFuncHor.consultar(Integer.parseInt(txtRegistro.getText()));
+        recepcionista = null;
+        //recep = daoRecepcionista
 
-        if (funcHor == null){
-            txtRegistro.setEnabled(false);
-            txtNome.setEnabled(true);
+        if (recepcionista == null){
+            txtReg.setEnabled(false);
+            lblNome.setEnabled(true);
             rbtTarde.setEnabled(true);
             rbtManha.setEnabled(false);
-            txtDtAdmissao.setEnabled(true);
-            txtCargo.setEnabled(true);
-            txtValHorTrab.setEnabled(true);
-            cbxDepartamentos.setEnabled(true);
-            txtNome.requestFocus();
+            lblEndereco.setEnabled(true);
+            lblTelefone.setEnabled(true);
+            
+            lblNome.requestFocus();
 
             btnConsultar.setEnabled(false);
             btnInserir.setEnabled(true);
@@ -284,29 +276,27 @@ public class GuiRecepcionista extends javax.swing.JFrame {
             btnExcluir.setEnabled(false);
         }
         else{
-            txtNome.setText(funcHor.getNome());
-            if (funcHor.getSexo().equals("F")){
+            lblNome.setText(recepcionista.getNome());
+            if (recepcionista.getTurno().equals("F")){
                 rbtTarde.setSelected(true);
             }else{
                 rbtManha.setSelected(true);
             }
-            txtDtAdmissao.setText(funcHor.getDtAdmissao());
-            txtCargo.setText(funcHor.getCargo());
-            txtValHorTrab.setText(String.valueOf(funcHor.getValHorTrab()));
-            cbxDepartamentos.setSelectedItem(funcHor.getDepartamento().getNome());
+            //lblEndereco.setText();
+            //lblTelefone.setText();
+            
 
-            //Guarda a posição do departamento selecionado no comboBox
-            posDepto = cbxDepartamentos.getSelectedIndex();
+            //Guarda a posição do Turno selecionado no comboBox
+            //
 
-            txtRegistro.setEnabled(false);
-            txtNome.setEnabled(true);
+            txtReg.setEnabled(false);
+            lblNome.setEnabled(true);
             rbtTarde.setEnabled(true);
             rbtManha.setEnabled(true);
-            txtDtAdmissao.setEnabled(true);
-            txtCargo.setEnabled(true);
-            txtValHorTrab.setEnabled(true);
-            cbxDepartamentos.setEnabled(true);
-            txtNome.requestFocus();
+            lblEndereco.setEnabled(true);
+            lblTelefone.setEnabled(true);
+
+            lblNome.requestFocus();
 
             btnConsultar.setEnabled(false);
             btnInserir.setEnabled(false);
@@ -321,22 +311,19 @@ public class GuiRecepcionista extends javax.swing.JFrame {
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         if (JOptionPane.showConfirmDialog(null, "Confirma Exclusão?") == 0){
-            daoFuncHor.excluir(funcHor);
-            departamentos.get(cbxDepartamentos.getSelectedIndex()).removeFuncionario(funcHor);
+            //
         }
-        txtRegistro.setText(null);
-        txtNome.setText(null);
-        txtDtAdmissao.setText(null);
-        txtCargo.setText(null);
-        txtValHorTrab.setText(null);
-        cbxDepartamentos.setSelectedIndex(0);
-        txtRegistro.setEnabled(true);
-        txtNome.setEnabled(false);
-        txtDtAdmissao.setEnabled(false);
-        txtCargo.setEnabled(false);
-        txtValHorTrab.setEnabled(false);
-        cbxDepartamentos.setEnabled(false);
-        txtRegistro.requestFocus();
+        txtReg.setText(null);
+        lblNome.setText(null);
+        lblEndereco.setText(null);
+        lblTelefone.setText(null);
+
+        txtReg.setEnabled(true);
+        lblNome.setEnabled(false);
+        lblEndereco.setEnabled(false);
+        lblTelefone.setEnabled(false);
+
+        txtReg.requestFocus();
 
         btnConsultar.setEnabled(true);
         btnInserir.setEnabled(false);
@@ -347,42 +334,22 @@ public class GuiRecepcionista extends javax.swing.JFrame {
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
         if (JOptionPane.showConfirmDialog(null, "Confirma Alteração?")== 0){//Sim
-            funcHor.setNome(txtNome.getText());
-            if (rbtTarde.isSelected()){
-                funcHor.setSexo("F");
-            }else{
-                funcHor.setSexo("M");
-            }
-            funcHor.setDtAdmissao(txtDtAdmissao.getText());
-            funcHor.setCargo(txtCargo.getText());
-            funcHor.setValHorTrab(Double.parseDouble(txtValHorTrab.getText()));
 
-            //altera a associação binária bidirecional entre
-            //funcionario horista e departamento quando
-            //muda o departamento do funcionario horista
-            if (posDepto != cbxDepartamentos.getSelectedIndex()){
-                departamentos.get(posDepto).removeFuncionario(funcHor);
-                departamentos.get(cbxDepartamentos.getSelectedIndex()).addFuncionario(funcHor);
-            }
-            daoFuncHor.alterar(funcHor);
         }
 
-        txtRegistro.setText(null);
-        txtNome.setText(null);
+        txtReg.setText(null);
+        lblNome.setText(null);
         rbtTarde.setSelected(true);
-        txtDtAdmissao.setText(null);
-        txtCargo.setText(null);
-        txtValHorTrab.setText(null);
-        cbxDepartamentos.setSelectedIndex(0);
-        txtRegistro.setEnabled(true);
-        txtNome.setEnabled(false);
+        lblEndereco.setText(null);
+        lblTelefone.setText(null);
+        txtReg.setEnabled(true);
+        lblNome.setEnabled(false);
         rbtTarde.setEnabled(false);
         rbtManha.setEnabled(false);
-        txtDtAdmissao.setEnabled(false);
-        txtCargo.setEnabled(false);
-        txtValHorTrab.setEnabled(false);
-        cbxDepartamentos.setEnabled(false);
-        txtRegistro.requestFocus();
+        lblEndereco.setEnabled(false);
+        lblTelefone.setEnabled(false);
+
+        txtReg.requestFocus();
 
         btnConsultar.setEnabled(true);
         btnInserir.setEnabled(false);
@@ -397,6 +364,18 @@ public class GuiRecepcionista extends javax.swing.JFrame {
     private void rbtTardeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtTardeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_rbtTardeActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        prepCon = new PreparaConexao("BD2321003","BD2321003");
+        prepCon.setDriver("oracle.jdbc.driver.OracleDriver");
+        prepCon.setConnectionString("jdbc:oracle:thin:@192.168.1.6:1521:xe");
+        
+        //daoRecepcionista
+    }//GEN-LAST:event_formWindowOpened
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        prepCon.fecharConexao();
+    }//GEN-LAST:event_formWindowClosed
 
     /**
      * @param args the command line arguments
@@ -432,7 +411,10 @@ public class GuiRecepcionista extends javax.swing.JFrame {
             }
         });
     }
-
+    
+    private PreparaConexao prepCon=null;
+    private Recepcionista recepcionista = null;
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterar;
     private javax.swing.JButton btnConsultar;

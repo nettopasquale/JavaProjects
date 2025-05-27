@@ -18,7 +18,7 @@ public class PreparaConexao {
    private String senha;
    private Connection connection=null;
    
-   public void preparaConexao(String usuario, String senha){
+   public PreparaConexao(String usuario, String senha){
        this.usuario = usuario;
        this.senha = senha;
    }
