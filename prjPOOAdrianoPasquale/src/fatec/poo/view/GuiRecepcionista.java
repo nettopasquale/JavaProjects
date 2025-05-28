@@ -50,6 +50,7 @@ public class GuiRecepcionista extends javax.swing.JFrame {
         lblTelefone = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Cadastro Recepcionista");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
@@ -107,19 +108,9 @@ public class GuiRecepcionista extends javax.swing.JFrame {
         buttonGroupTurno.add(rbtManha);
         rbtManha.setSelected(true);
         rbtManha.setText("Manhã");
-        rbtManha.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbtManhaActionPerformed(evt);
-            }
-        });
 
         buttonGroupTurno.add(rbtTarde);
         rbtTarde.setText("Tarde");
-        rbtTarde.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbtTardeActionPerformed(evt);
-            }
-        });
 
         buttonGroupTurno.add(rbtNoite);
         rbtNoite.setText("Noite");
@@ -235,74 +226,11 @@ public class GuiRecepcionista extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirActionPerformed
-       //
 
-        txtReg.setText(null);
-        lblNome.setText(null);
-        rbtTarde.setSelected(true);
-        lblEndereco.setText(null);
-        lblTelefone.setText(null);
-        txtReg.setEnabled(true);
-        lblNome.setEnabled(false);
-        rbtTarde.setEnabled(false);
-        rbtManha.setEnabled(false);
-        lblEndereco.setEnabled(false);
-        lblTelefone.setEnabled(false);
-        txtReg.requestFocus();
-
-        btnConsultar.setEnabled(true);
-        btnInserir.setEnabled(false);
-        btnAlterar.setEnabled(false);
-        btnExcluir.setEnabled(false);
     }//GEN-LAST:event_btnInserirActionPerformed
 
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
-        recepcionista = null;
-        //recep = daoRecepcionista
-
-        if (recepcionista == null){
-            txtReg.setEnabled(false);
-            lblNome.setEnabled(true);
-            rbtTarde.setEnabled(true);
-            rbtManha.setEnabled(false);
-            lblEndereco.setEnabled(true);
-            lblTelefone.setEnabled(true);
-            
-            lblNome.requestFocus();
-
-            btnConsultar.setEnabled(false);
-            btnInserir.setEnabled(true);
-            btnAlterar.setEnabled(false);
-            btnExcluir.setEnabled(false);
-        }
-        else{
-            lblNome.setText(recepcionista.getNome());
-            if (recepcionista.getTurno().equals("F")){
-                rbtTarde.setSelected(true);
-            }else{
-                rbtManha.setSelected(true);
-            }
-            //lblEndereco.setText();
-            //lblTelefone.setText();
-            
-
-            //Guarda a posição do Turno selecionado no comboBox
-            //
-
-            txtReg.setEnabled(false);
-            lblNome.setEnabled(true);
-            rbtTarde.setEnabled(true);
-            rbtManha.setEnabled(true);
-            lblEndereco.setEnabled(true);
-            lblTelefone.setEnabled(true);
-
-            lblNome.requestFocus();
-
-            btnConsultar.setEnabled(false);
-            btnInserir.setEnabled(false);
-            btnAlterar.setEnabled(true);
-            btnExcluir.setEnabled(true);
-        }
+       
     }//GEN-LAST:event_btnConsultarActionPerformed
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
@@ -310,60 +238,13 @@ public class GuiRecepcionista extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSairActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        if (JOptionPane.showConfirmDialog(null, "Confirma Exclusão?") == 0){
-            //
-        }
-        txtReg.setText(null);
-        lblNome.setText(null);
-        lblEndereco.setText(null);
-        lblTelefone.setText(null);
 
-        txtReg.setEnabled(true);
-        lblNome.setEnabled(false);
-        lblEndereco.setEnabled(false);
-        lblTelefone.setEnabled(false);
-
-        txtReg.requestFocus();
-
-        btnConsultar.setEnabled(true);
-        btnInserir.setEnabled(false);
-        btnAlterar.setEnabled(false);
-        btnExcluir.setEnabled(false);
 
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
-        if (JOptionPane.showConfirmDialog(null, "Confirma Alteração?")== 0){//Sim
 
-        }
-
-        txtReg.setText(null);
-        lblNome.setText(null);
-        rbtTarde.setSelected(true);
-        lblEndereco.setText(null);
-        lblTelefone.setText(null);
-        txtReg.setEnabled(true);
-        lblNome.setEnabled(false);
-        rbtTarde.setEnabled(false);
-        rbtManha.setEnabled(false);
-        lblEndereco.setEnabled(false);
-        lblTelefone.setEnabled(false);
-
-        txtReg.requestFocus();
-
-        btnConsultar.setEnabled(true);
-        btnInserir.setEnabled(false);
-        btnAlterar.setEnabled(false);
-        btnExcluir.setEnabled(false);
     }//GEN-LAST:event_btnAlterarActionPerformed
-
-    private void rbtManhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtManhaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_rbtManhaActionPerformed
-
-    private void rbtTardeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtTardeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_rbtTardeActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         prepCon = new PreparaConexao("BD2321003","BD2321003");

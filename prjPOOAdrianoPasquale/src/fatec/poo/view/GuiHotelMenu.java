@@ -27,15 +27,16 @@ public class GuiHotelMenu extends javax.swing.JFrame {
     private void initComponents() {
 
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenuObjetos = new javax.swing.JMenu();
+        jMenuHotelCadastros = new javax.swing.JMenu();
         jMenuItemQuarto = new javax.swing.JMenuItem();
         jMenuItemRecepcionista = new javax.swing.JMenuItem();
         jMenuItemHospede = new javax.swing.JMenuItem();
         jMenuItemServicoQuarto = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Hotel POO");
 
-        jMenuObjetos.setText("Cadastro");
+        jMenuHotelCadastros.setText("Cadastro");
 
         jMenuItemQuarto.setText("Quarto");
         jMenuItemQuarto.addActionListener(new java.awt.event.ActionListener() {
@@ -43,7 +44,7 @@ public class GuiHotelMenu extends javax.swing.JFrame {
                 jMenuItemQuartoActionPerformed(evt);
             }
         });
-        jMenuObjetos.add(jMenuItemQuarto);
+        jMenuHotelCadastros.add(jMenuItemQuarto);
 
         jMenuItemRecepcionista.setText("Recepcionista");
         jMenuItemRecepcionista.addActionListener(new java.awt.event.ActionListener() {
@@ -51,7 +52,7 @@ public class GuiHotelMenu extends javax.swing.JFrame {
                 jMenuItemRecepcionistaActionPerformed(evt);
             }
         });
-        jMenuObjetos.add(jMenuItemRecepcionista);
+        jMenuHotelCadastros.add(jMenuItemRecepcionista);
 
         jMenuItemHospede.setText("Hospede");
         jMenuItemHospede.addActionListener(new java.awt.event.ActionListener() {
@@ -59,7 +60,7 @@ public class GuiHotelMenu extends javax.swing.JFrame {
                 jMenuItemHospedeActionPerformed(evt);
             }
         });
-        jMenuObjetos.add(jMenuItemHospede);
+        jMenuHotelCadastros.add(jMenuItemHospede);
 
         jMenuItemServicoQuarto.setText("Serviço de Quarto");
         jMenuItemServicoQuarto.addActionListener(new java.awt.event.ActionListener() {
@@ -67,9 +68,9 @@ public class GuiHotelMenu extends javax.swing.JFrame {
                 jMenuItemServicoQuartoActionPerformed(evt);
             }
         });
-        jMenuObjetos.add(jMenuItemServicoQuarto);
+        jMenuHotelCadastros.add(jMenuItemServicoQuarto);
 
-        jMenuBar1.add(jMenuObjetos);
+        jMenuBar1.add(jMenuHotelCadastros);
 
         setJMenuBar(jMenuBar1);
 
@@ -88,27 +89,31 @@ public class GuiHotelMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItemQuartoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemQuartoActionPerformed
-        // TODO add your handling code here:
+        GuiCadastroQuarto guiCadastroQuarto;
+        guiCadastroQuarto = new GuiCadastroQuarto();
+        guiCadastroQuarto.setVisible(true);
         
-        /* APAGAR, APENAS REFERENCIA
-        GUIContaCorrente guiContaCorrente;
-        
-        guiContaCorrente = new GUIContaCorrente();
-        
-        guiContaCorrente.setVisible(true)
-        */
     }//GEN-LAST:event_jMenuItemQuartoActionPerformed
 
     private void jMenuItemRecepcionistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemRecepcionistaActionPerformed
-        // TODO add your handling code here:
+        GuiRecepcionista guiRecepcionista;
+        guiRecepcionista = new GuiRecepcionista();
+        
+        guiRecepcionista.setVisible(true);
     }//GEN-LAST:event_jMenuItemRecepcionistaActionPerformed
 
     private void jMenuItemHospedeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemHospedeActionPerformed
-        // TODO add your handling code here:
+        GuiHospede guiHospede;
+        guiHospede = new GuiHospede();
+        
+        guiHospede.setVisible(true);
     }//GEN-LAST:event_jMenuItemHospedeActionPerformed
 
     private void jMenuItemServicoQuartoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemServicoQuartoActionPerformed
-        // TODO add your handling code here:
+        GuiServicoQuarto guiServicoQuarto;
+        guiServicoQuarto = new GuiServicoQuarto();
+        
+        guiServicoQuarto.setVisible(true);
     }//GEN-LAST:event_jMenuItemServicoQuartoActionPerformed
 
     /**
@@ -148,10 +153,10 @@ public class GuiHotelMenu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenu jMenuHotelCadastros;
     private javax.swing.JMenuItem jMenuItemHospede;
     private javax.swing.JMenuItem jMenuItemQuarto;
     private javax.swing.JMenuItem jMenuItemRecepcionista;
     private javax.swing.JMenuItem jMenuItemServicoQuarto;
-    private javax.swing.JMenu jMenuObjetos;
     // End of variables declaration//GEN-END:variables
 }
