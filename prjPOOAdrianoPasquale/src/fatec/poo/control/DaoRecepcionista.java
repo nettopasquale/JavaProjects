@@ -79,6 +79,9 @@ public class DaoRecepcionista {
             if (rs.next() == true) {
                 r = new Recepcionista(rs.getString("Nome_Recep"),
                         rs.getInt("RegFunc_Recep"));
+                r.setEndereco(rs.getString("Endereco_Recep"));
+                r.setTelefone(rs.getString("Telefone_Recep"));
+                r.setTurno(rs.getString("Turno_Recep"));
 
             }
         }
