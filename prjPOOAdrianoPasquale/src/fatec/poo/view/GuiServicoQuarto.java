@@ -4,6 +4,7 @@
  */
 package fatec.poo.view;
 
+import fatec.poo.control.DaoServicoQuarto;
 import fatec.poo.control.PreparaConexao;
 import fatec.poo.model.ServicoQuarto;
 
@@ -66,6 +67,7 @@ public class GuiServicoQuarto extends javax.swing.JFrame {
 
         btnInserir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/add.png"))); // NOI18N
         btnInserir.setText("Inserir");
+        btnInserir.setEnabled(false);
         btnInserir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnInserirActionPerformed(evt);
@@ -74,6 +76,7 @@ public class GuiServicoQuarto extends javax.swing.JFrame {
 
         btnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/Alterar.png"))); // NOI18N
         btnAlterar.setText("Alterar");
+        btnAlterar.setEnabled(false);
         btnAlterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAlterarActionPerformed(evt);
@@ -82,6 +85,7 @@ public class GuiServicoQuarto extends javax.swing.JFrame {
 
         btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/rem.png"))); // NOI18N
         btnExcluir.setText("Excluir");
+        btnExcluir.setEnabled(false);
         btnExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnExcluirActionPerformed(evt);
@@ -196,6 +200,7 @@ public class GuiServicoQuarto extends javax.swing.JFrame {
         prepCon = new PreparaConexao("BD2321003","BD2321003");
         prepCon.setDriver("oracle.jdbc.driver.OracleDriver");
         prepCon.setConnectionString("jdbc:oracle:thin:@192.168.1.6:1521:xe");
+        daoServicoQuarto = new DaoServicoQuarto(prepCon.abrirConexao());
     }//GEN-LAST:event_formWindowOpened
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
@@ -239,6 +244,7 @@ public class GuiServicoQuarto extends javax.swing.JFrame {
     
     private PreparaConexao prepCon=null;
     private ServicoQuarto servico = null;
+    private DaoServicoQuarto daoServicoQuarto=null;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterar;

@@ -4,6 +4,7 @@
  */
 package fatec.poo.view;
 
+import fatec.poo.control.DaoRecepcionista;
 import fatec.poo.control.PreparaConexao;
 import fatec.poo.model.Recepcionista;
 import javax.swing.JOptionPane;
@@ -250,6 +251,7 @@ public class GuiRecepcionista extends javax.swing.JFrame {
         prepCon = new PreparaConexao("BD2321003","BD2321003");
         prepCon.setDriver("oracle.jdbc.driver.OracleDriver");
         prepCon.setConnectionString("jdbc:oracle:thin:@192.168.1.6:1521:xe");
+        daoRecepcionista = new DaoRecepcionista(prepCon.abrirConexao());
         
         //daoRecepcionista
     }//GEN-LAST:event_formWindowOpened
@@ -295,6 +297,7 @@ public class GuiRecepcionista extends javax.swing.JFrame {
     
     private PreparaConexao prepCon=null;
     private Recepcionista recepcionista = null;
+    private DaoRecepcionista daoRecepcionista =null;
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterar;
