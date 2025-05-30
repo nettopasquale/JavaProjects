@@ -7,6 +7,7 @@ package fatec.poo.view;
 import fatec.poo.control.DaoQuarto;
 import fatec.poo.control.PreparaConexao;
 import fatec.poo.model.Quarto;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -191,19 +192,118 @@ public class GuiCadastroQuarto extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
-        // TODO add your handling code here:
+        quarto = null;
+        
+        try{
+            //tenta converter o texto de txtNQuarto
+            quarto = daoQuarto.consultar(Integer.parseInt(txtNQuarto.getText()));
+            
+        if(quarto == null){
+            txtNQuarto.setEnabled(false);
+            txtDiaria.setEnabled(true);
+            rdbSolteiro.setEnabled(true);
+            rdbCasal.setEnabled(false);
+            
+            btnConsultar.setEnabled(false);
+            btnInserir.setEnabled(true);
+            btnAlterar.setEnabled(false);
+            btnExcluir.setEnabled(false);
+        }
+        else{
+            txtDiaria.setText(String.valueOf(quarto.getValorDiaria()));
+            
+            txtNQuarto.setEnabled(false);
+            txtDiaria.setEnabled(true);
+            rdbSolteiro.setEnabled(true);
+            rdbCasal.setEnabled(true);
+            txtDiaria.requestFocus();
+            
+            btnConsultar.setEnabled(true);
+            btnInserir.setEnabled(false);
+            btnAlterar.setEnabled(true);
+            btnExcluir.setEnabled(true);
+            }   
+        
+        }
+        catch(NumberFormatException ex){
+            System.out.println(ex.toString());
+        }
     }//GEN-LAST:event_btnConsultarActionPerformed
 
     private void btnInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirActionPerformed
-        // TODO add your handling code here:
+
+        String tipo = "";
+        if(rdbSolteiro.isSelected()){
+            tipo = "S";
+        }else {
+            tipo = "D";
+        }
+        
+        quarto = new Quarto(Integer.parseInt(txtNQuarto.getText()),"", 
+                Double.parseDouble(txtDiaria.getText()));
+        
+        quarto.setTipo(tipo);
+        
+        daoQuarto.inserir(quarto);
+        
+        txtNQuarto.setText(null);
+        txtDiaria.setText(null);
+        rdbSolteiro.setSelected(true);
+        btnInserir.setEnabled(false);
+        txtNQuarto.setEnabled(true);
+        txtDiaria.setEnabled(false);
+        rdbSolteiro.setEnabled(false);
+        rdbCasal.setEnabled(false);
+        txtNQuarto.requestFocus();
+        
+        btnConsultar.setEnabled(true);
+        btnAlterar.setEnabled(false);
+        btnExcluir.setEnabled(false);
     }//GEN-LAST:event_btnInserirActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
-        // TODO add your handling code here:
+        if(JOptionPane.showConfirmDialog(null, "Confirma Alteração?") == 0){
+            //Se sets Tipo e valorDiária não forem corretos, mudar aqui.
+            quarto.setValorDiaria(Double.parseDouble(txtDiaria.getText()));
+            if(rdbSolteiro.isSelected()){
+                quarto.setTipo("S");
+            }else{
+                quarto.setTipo("D");
+            }
+
+            daoQuarto.alterar(quarto);
+        }
+        
+        txtNQuarto.setText(null);
+        txtDiaria.setText(null);
+        rdbSolteiro.setSelected(true);
+        txtNQuarto.setEnabled(true);
+        txtDiaria.setEnabled(false);
+        rdbSolteiro.setEnabled(false);
+        rdbCasal.setEnabled(false);
+        
+        btnConsultar.setEnabled(true);
+        btnInserir.setEnabled(false);
+        btnAlterar.setEnabled(false);
+        btnExcluir.setEnabled(false);
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        // TODO add your handling code here:
+        if(JOptionPane.showConfirmDialog(null, "Confirma Exclusão?") == 0){
+            daoQuarto.excluir(quarto);
+        }
+        txtNQuarto.setText(null);
+        txtDiaria.setText(null);
+        txtNQuarto.setEnabled(true);
+        txtDiaria.setEnabled(false);
+        rdbSolteiro.setEnabled(false);
+        rdbCasal.setEnabled(false);
+        txtNQuarto.requestFocus();
+        
+        btnConsultar.setEnabled(true);
+        btnInserir.setEnabled(true);
+        btnAlterar.setEnabled(true);
+        btnExcluir.setEnabled(true);
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
