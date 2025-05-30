@@ -7,6 +7,7 @@ package fatec.poo.view;
 import fatec.poo.control.DaoHospede;
 import fatec.poo.control.PreparaConexao;
 import fatec.poo.model.Hospede;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -41,10 +42,10 @@ public class GuiHospede extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
+        txtNome = new javax.swing.JTextField();
+        txtEndereco = new javax.swing.JTextField();
+        txtTelefone = new javax.swing.JTextField();
+        txtTaxaDesconto = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro Hospede");
@@ -116,13 +117,13 @@ public class GuiHospede extends javax.swing.JFrame {
 
         jLabel5.setText("Taxa de desconto (%)");
 
-        jLabel6.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        txtNome.setEnabled(false);
 
-        jLabel7.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        txtEndereco.setEnabled(false);
 
-        jLabel8.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        txtTelefone.setEnabled(false);
 
-        jLabel9.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        txtTaxaDesconto.setEnabled(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -134,7 +135,7 @@ public class GuiHospede extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtTaxaDesconto, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(4, 4, 4)
@@ -145,17 +146,19 @@ public class GuiHospede extends javax.swing.JFrame {
                             .addComponent(jLabel1))
                         .addGap(46, 46, 46)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(ftxCPF)
+                            .addComponent(txtNome)
+                            .addComponent(txtEndereco)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(btnConsultar)
-                                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(36, 36, 36)
-                                .addComponent(btnInserir)
+                                    .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(btnConsultar)
+                                        .addGap(36, 36, 36)
+                                        .addComponent(btnInserir)))
                                 .addGap(28, 28, 28)
-                                .addComponent(btnAlterar)))))
+                                .addComponent(btnAlterar)
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addGap(27, 27, 27)
                 .addComponent(btnExcluir)
                 .addGap(35, 35, 35)
@@ -165,27 +168,30 @@ public class GuiHospede extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(44, Short.MAX_VALUE)
+                .addContainerGap(43, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(ftxCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(23, 23, 23)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addComponent(jLabel2))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(35, 35, 35)
+                        .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(25, 25, 25)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(38, 38, 38)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+                    .addComponent(txtEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(33, 33, 33)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(32, 32, 32)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(txtTaxaDesconto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnConsultar)
                     .addComponent(btnInserir)
@@ -199,15 +205,80 @@ public class GuiHospede extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirActionPerformed
-        // TODO add your handling code here:
+        hospede = new Hospede(txtNome.getText() ,ftxCPF.getText());
+        
+        hospede.setEndereco(txtEndereco.getText());
+        hospede.setTelefone(txtTelefone.getText());
+        hospede.setTaxaDesconto(Double.parseDouble(txtTaxaDesconto.getText()));
+        
+        daoHospede.inserir(hospede);
+        
+            ftxCPF.setText(null);
+            txtNome.setText(null);
+            txtEndereco.setText(null);
+            txtTelefone.setText(null);
+            txtTaxaDesconto.setText(null);
+            ftxCPF.setEnabled(true);
+            txtNome.setEnabled(false);
+            txtEndereco.setEnabled(false);
+            txtTelefone.setEnabled(false);
+            txtTaxaDesconto.setEnabled(false);
+            ftxCPF.requestFocus();
+            
+            btnConsultar.setEnabled(true);
+            btnInserir.setEnabled(false);
+            btnAlterar.setEnabled(false);
+            btnExcluir.setEnabled(false);
+        
     }//GEN-LAST:event_btnInserirActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
-        // TODO add your handling code here:
+        if(JOptionPane.showConfirmDialog(null, "Confirma Alteração?") ==0){
+            hospede.setEndereco(txtEndereco.getText());
+            hospede.setTelefone(txtTelefone.getText());
+            hospede.setTaxaDesconto(Double.parseDouble(txtTaxaDesconto.getText()));
+            
+            daoHospede.alterar(hospede);
+        }
+        
+            ftxCPF.setText(null);
+            txtNome.setText(null);
+            txtEndereco.setText(null);
+            txtTelefone.setText(null);
+            txtTaxaDesconto.setText(null);
+            ftxCPF.setEnabled(true);
+            txtNome.setEnabled(false);
+            txtEndereco.setEnabled(false);
+            txtTelefone.setEnabled(false);
+            txtTaxaDesconto.setEnabled(false);
+            ftxCPF.requestFocus();
+            
+            btnConsultar.setEnabled(true);
+            btnInserir.setEnabled(false);
+            btnAlterar.setEnabled(false);
+            btnExcluir.setEnabled(false);
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        // TODO add your handling code here:
+        if(JOptionPane.showConfirmDialog(null, "Confirma Exclusão?") == 0){
+            daoHospede.excluir(hospede);
+        }
+            ftxCPF.setText(null);
+            txtNome.setText(null);
+            txtEndereco.setText(null);
+            txtTelefone.setText(null);
+            txtTaxaDesconto.setText(null);
+            ftxCPF.setEnabled(true);
+            txtNome.setEnabled(false);
+            txtEndereco.setEnabled(false);
+            txtTelefone.setEnabled(false);
+            txtTaxaDesconto.setEnabled(false);
+            ftxCPF.requestFocus();
+            
+            btnConsultar.setEnabled(true);
+            btnInserir.setEnabled(false);
+            btnAlterar.setEnabled(false);
+            btnExcluir.setEnabled(false);
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
@@ -215,7 +286,40 @@ public class GuiHospede extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSairActionPerformed
 
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
-        // TODO add your handling code here:
+        hospede = null;
+        hospede = daoHospede.consultar(ftxCPF.getText());
+        
+        if(hospede == null){
+            ftxCPF.setEnabled(false);
+            txtNome.setEnabled(true);
+            txtEndereco.setEnabled(true);
+            txtTelefone.setEnabled(true);
+            txtTaxaDesconto.setEnabled(true);
+            ftxCPF.requestFocus();
+            
+            btnConsultar.setEnabled(false);
+            btnInserir.setEnabled(true);
+            btnAlterar.setEnabled(false);
+            btnExcluir.setEnabled(false);
+        }
+        else{
+            txtNome.setText(hospede.getNome());
+            txtEndereco.setText(hospede.getEndereco());
+            txtTelefone.setText(hospede.getTelefone());
+            txtTaxaDesconto.setText(String.valueOf(hospede.getTaxaDesconto()));
+            
+            ftxCPF.setEnabled(false);
+            txtNome.setEnabled(true);
+            txtEndereco.setEnabled(true);
+            txtTelefone.setEnabled(true);
+            txtTaxaDesconto.setEnabled(true);
+            ftxCPF.requestFocus();
+            
+            btnConsultar.setEnabled(false);
+            btnInserir.setEnabled(false);
+            btnAlterar.setEnabled(true);
+            btnExcluir.setEnabled(true);
+        }
     }//GEN-LAST:event_btnConsultarActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
@@ -279,9 +383,9 @@ public class GuiHospede extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
+    private javax.swing.JTextField txtEndereco;
+    private javax.swing.JTextField txtNome;
+    private javax.swing.JTextField txtTaxaDesconto;
+    private javax.swing.JTextField txtTelefone;
     // End of variables declaration//GEN-END:variables
 }
