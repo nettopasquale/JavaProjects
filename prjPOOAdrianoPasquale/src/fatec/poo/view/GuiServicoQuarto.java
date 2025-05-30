@@ -7,6 +7,7 @@ package fatec.poo.view;
 import fatec.poo.control.DaoServicoQuarto;
 import fatec.poo.control.PreparaConexao;
 import fatec.poo.model.ServicoQuarto;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -41,7 +42,7 @@ public class GuiServicoQuarto extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         cbxDescricao = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
-        lblValor = new javax.swing.JLabel();
+        txtValor = new javax.swing.JTextField();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -116,7 +117,7 @@ public class GuiServicoQuarto extends javax.swing.JFrame {
 
         jLabel3.setText("Valor");
 
-        lblValor.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        txtValor.setEnabled(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -141,11 +142,10 @@ public class GuiServicoQuarto extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(jLabel3))
                 .addGap(34, 34, 34)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(cbxDescricao, 0, 1, Short.MAX_VALUE)
-                        .addComponent(txtCodigo, javax.swing.GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE))
-                    .addComponent(lblValor, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(cbxDescricao, 0, 1, Short.MAX_VALUE)
+                    .addComponent(txtCodigo, javax.swing.GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)
+                    .addComponent(txtValor))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -159,11 +159,11 @@ public class GuiServicoQuarto extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(cbxDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(36, 36, 36)
+                .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(lblValor, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 114, Short.MAX_VALUE)
+                    .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 111, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnConsultar)
                     .addComponent(btnInserir)
@@ -177,15 +177,67 @@ public class GuiServicoQuarto extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirActionPerformed
-        // TODO add your handling code here:
+        servico = new ServicoQuarto(Integer.parseInt(txtCodigo.getText()), 
+                cbxDescricao.getSelectedItem().toString());
+        
+        servico.setValor(Double.parseDouble(txtValor.getText()));
+        
+        daoServicoQuarto.inserir(servico);
+        
+        txtCodigo.setText(null);
+        cbxDescricao.setSelectedIndex(0);
+        txtValor.setText(null);
+        txtCodigo.setEnabled(true);
+        cbxDescricao.setEnabled(false);
+        txtValor.setEnabled(false);
+        txtCodigo.requestFocus();
+           
+        btnConsultar.setEnabled(true);
+        btnInserir.setEnabled(false);
+        btnAlterar.setEnabled(false);
+        btnExcluir.setEnabled(false);
+        
+        
     }//GEN-LAST:event_btnInserirActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
-        // TODO add your handling code here:
+        if(JOptionPane.showConfirmDialog(null, "Confirma Alteração?") == 0){
+            servico.setValor(Double.parseDouble(txtValor.getText()));
+            
+            daoServicoQuarto.alterar(servico);
+        }
+        
+        txtCodigo.setText(null);
+        cbxDescricao.setSelectedIndex(0);
+        txtValor.setText(null);
+        txtCodigo.setEnabled(true);
+        cbxDescricao.setEnabled(false);
+        txtValor.setEnabled(false);
+        txtCodigo.requestFocus();
+           
+        btnConsultar.setEnabled(true);
+        btnInserir.setEnabled(false);
+        btnAlterar.setEnabled(false);
+        btnExcluir.setEnabled(false);
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        // TODO add your handling code here:
+        if(JOptionPane.showConfirmDialog(null, "Confirma Exclusão?") == 0){
+            daoServicoQuarto.excluir(servico);
+        }
+        
+        txtCodigo.setText(null);
+        cbxDescricao.setSelectedIndex(0);
+        txtValor.setText(null);
+        txtCodigo.setEnabled(true);
+        cbxDescricao.setEnabled(false);
+        txtValor.setEnabled(false);
+        txtCodigo.requestFocus();
+           
+        btnConsultar.setEnabled(true);
+        btnInserir.setEnabled(false);
+        btnAlterar.setEnabled(false);
+        btnExcluir.setEnabled(false);
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
@@ -193,7 +245,37 @@ public class GuiServicoQuarto extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSairActionPerformed
 
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
-        // TODO add your handling code here:
+       servico = null;
+       servico = daoServicoQuarto.consultar(Integer.parseInt(txtCodigo.getText()));
+       
+       if(servico == null){
+           txtCodigo.setEnabled(false);
+           cbxDescricao.setEnabled(true);
+           txtValor.setEnabled(true);
+           txtCodigo.requestFocus();
+           
+           btnConsultar.setEnabled(false);
+           btnInserir.setEnabled(true);
+           btnAlterar.setEnabled(false);
+           btnExcluir.setEnabled(false);
+       }else{
+           cbxDescricao.setSelectedItem(servico.getDescricao());
+           txtValor.setText(String.valueOf(servico.getValor()));
+           
+           // guardar posição do serviço selecionado no combobox
+           posServico = cbxDescricao.getSelectedIndex();
+           
+           txtCodigo.setEnabled(false);
+           cbxDescricao.setEnabled(true);
+           txtValor.setEnabled(true);
+           txtCodigo.requestFocus();
+           
+           btnConsultar.setEnabled(false);
+           btnInserir.setEnabled(false);
+           btnAlterar.setEnabled(true);
+           btnExcluir.setEnabled(true);
+           
+       }
     }//GEN-LAST:event_btnConsultarActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
@@ -245,6 +327,7 @@ public class GuiServicoQuarto extends javax.swing.JFrame {
     private PreparaConexao prepCon=null;
     private ServicoQuarto servico = null;
     private DaoServicoQuarto daoServicoQuarto=null;
+    private int posServico; //n tenho certeza se é pertinente...
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterar;
@@ -257,7 +340,7 @@ public class GuiServicoQuarto extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JLabel lblValor;
     private javax.swing.JTextField txtCodigo;
+    private javax.swing.JTextField txtValor;
     // End of variables declaration//GEN-END:variables
 }

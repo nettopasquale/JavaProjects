@@ -33,5 +33,11 @@ public class Hospede extends Pessoa{
     public void addRegistro(Registro registro){
         registros.add(registro);
     }
+    
+    public boolean validarCPF(String cpf){
+        //implementar aqui validação de cpf
+        //getCpf().trim();
+        return true;
+    }
 
 }
