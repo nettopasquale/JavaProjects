@@ -7,6 +7,8 @@ package fatec.poo.view;
 import fatec.poo.control.DaoRecepcionista;
 import fatec.poo.control.PreparaConexao;
 import fatec.poo.model.Recepcionista;
+import fatec.poo.model.Registro;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
@@ -46,9 +48,9 @@ public class GuiRecepcionista extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         txtReg = new javax.swing.JTextField();
-        lblNome = new javax.swing.JLabel();
-        lblEndereco = new javax.swing.JLabel();
-        lblTelefone = new javax.swing.JLabel();
+        txtNome = new javax.swing.JTextField();
+        txtEndereco = new javax.swing.JTextField();
+        txtTelefone = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro Recepcionista");
@@ -146,11 +148,11 @@ public class GuiRecepcionista extends javax.swing.JFrame {
 
         jLabel4.setText("Telefone");
 
-        lblNome.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        txtNome.setEnabled(false);
 
-        lblEndereco.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        txtEndereco.setEnabled(false);
 
-        lblTelefone.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        txtTelefone.setEnabled(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -172,14 +174,13 @@ public class GuiRecepcionista extends javax.swing.JFrame {
                                     .addComponent(jLabel3)
                                     .addComponent(jLabel4))
                                 .addGap(34, 34, 34)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(txtReg)
-                                        .addComponent(lblEndereco, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(lblTelefone, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                                            .addGap(199, 199, 199)))
-                                    .addComponent(lblNome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtReg, javax.swing.GroupLayout.DEFAULT_SIZE, 349, Short.MAX_VALUE)
+                                    .addComponent(txtNome)
+                                    .addComponent(txtEndereco)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(txtTelefone)
+                                        .addGap(199, 199, 199))))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnConsultar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -200,17 +201,20 @@ public class GuiRecepcionista extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(txtReg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE)
-                    .addComponent(lblNome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
-                    .addComponent(lblEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel4)
-                    .addComponent(lblTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addComponent(jLabel4))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29)
@@ -227,11 +231,92 @@ public class GuiRecepcionista extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirActionPerformed
-
+        recepcionista = new Recepcionista(txtNome.getText(), 
+                Integer.parseInt(txtReg.getText()));
+        
+        recepcionista.setEndereco(txtEndereco.getText());
+        recepcionista.setTelefone(txtTelefone.getText());
+        
+        if(rbtManha.isSelected()){
+            recepcionista.setTurno("M");
+        }else if(rbtTarde.isSelected()){
+            recepcionista.setTurno("T");
+        }else{
+            recepcionista.setTurno("N");
+        }
+        
+        //estabelecer associação binária bidirecional com Registro?
+        //Caso sim add lógica aqui
+        
+        daoRecepcionista.inserir(recepcionista);
+        
+        txtReg.setText(null);
+        txtNome.setText(null);
+        txtEndereco.setText(null);
+        txtTelefone.setText(null);
+        rbtManha.setSelected(true);
+        txtReg.setEnabled(true);
+        txtNome.setEnabled(false);
+        txtEndereco.setEnabled(false);
+        txtTelefone.setEnabled(false);
+        rbtManha.setEnabled(false);
+        rbtTarde.setEnabled(false);
+        rbtNoite.setEnabled(false);
+        txtReg.requestFocus();
+        
+        btnConsultar.setEnabled(true);
+        btnInserir.setEnabled(false);
+        btnAlterar.setEnabled(false);
+        btnExcluir .setEnabled(false);
     }//GEN-LAST:event_btnInserirActionPerformed
 
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
+       recepcionista = null;
+       recepcionista = daoRecepcionista.consultar(Integer.parseInt(txtReg.getText()));
        
+       if(recepcionista == null){
+           txtReg.setEnabled(false);
+           txtNome.setEnabled(true);
+           txtEndereco.setEnabled(true);
+           txtTelefone.setEnabled(true);
+           rbtManha.setEnabled(true);
+           rbtTarde.setEnabled(false);
+           rbtNoite.setEnabled(false);
+           txtReg.requestFocus();
+           
+           btnConsultar.setEnabled(false);
+           btnInserir.setEnabled(true);
+           btnAlterar.setEnabled(false);
+           btnExcluir.setEnabled(false);
+       }
+       else{
+           txtNome.setText(recepcionista.getNome());
+           txtEndereco.setText(recepcionista.getEndereco());
+           txtTelefone.setText(recepcionista.getTelefone());
+           
+           if(recepcionista.getTurno().equals("M")){
+              rbtManha.setSelected(true);
+           }else if(recepcionista.getTurno().equals("T")){
+              rbtTarde.setSelected(true);
+           }else{
+              rbtNoite.setSelected(true);
+           }
+           
+           txtReg.setEnabled(false);
+           txtNome.setEnabled(true);
+           txtEndereco.setEnabled(true);
+           txtTelefone.setEnabled(true);
+           rbtManha.setEnabled(true);
+           rbtTarde.setEnabled(true);
+           rbtNoite.setEnabled(true);
+           txtReg.requestFocus();
+           
+           btnConsultar.setEnabled(false);
+           btnInserir.setEnabled(false);
+           btnAlterar.setEnabled(true);
+           btnExcluir.setEnabled(true);
+
+       }
     }//GEN-LAST:event_btnConsultarActionPerformed
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
@@ -239,12 +324,75 @@ public class GuiRecepcionista extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSairActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-
+        if(JOptionPane.showConfirmDialog(null, "Confirma Exclusão?") ==0 ){
+            daoRecepcionista.excluir(recepcionista);
+            //associação binária com registro?
+            //se sim add aqui
+        }
+           txtReg.setText(null);
+           txtNome.setText(null);
+           txtEndereco.setText(null);
+           txtTelefone.setText(null);
+           rbtManha.setEnabled(true);
+           rbtTarde.setEnabled(false);
+           rbtNoite.setEnabled(false);
+           txtReg.setEnabled(true);
+           txtNome.setEnabled(false);
+           txtEndereco.setEnabled(false);
+           txtTelefone.setEnabled(false);
+           rbtManha.setEnabled(false);
+           rbtTarde.setEnabled(false);
+           rbtNoite.setEnabled(false);
+           txtReg.requestFocus();
+           
+           btnConsultar.setEnabled(true);
+           btnInserir.setEnabled(false);
+           btnAlterar.setEnabled(false);
+           btnExcluir.setEnabled(false);
+        
 
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
-
+        if(JOptionPane.showConfirmDialog(null, "Confirma Alteração?") == 0){
+            //devo criar setNome em Pessoa?
+            //se sim, add setNome aqui;
+            recepcionista.setEndereco(txtEndereco.getText());
+            recepcionista.setTelefone(txtTelefone.getText());
+            
+            if(rbtManha.isSelected()){
+                recepcionista.setTurno("M");
+            }else if(rbtTarde.isSelected()){
+                recepcionista.setTurno("T");
+            }else{
+                recepcionista.setTurno("N");
+            }
+            
+            //Associação binária bidirecional com Registro?
+            //Se sim colocar aqui
+            
+            daoRecepcionista.alterar(recepcionista);
+        }
+           txtReg.setText(null);
+           txtNome.setText(null);
+           txtEndereco.setText(null);
+           txtTelefone.setText(null);
+           rbtManha.setEnabled(true);
+           rbtTarde.setEnabled(false);
+           rbtNoite.setEnabled(false);
+           txtReg.setEnabled(true);
+           txtNome.setEnabled(false);
+           txtEndereco.setEnabled(false);
+           txtTelefone.setEnabled(false);
+           rbtManha.setEnabled(false);
+           rbtTarde.setEnabled(false);
+           rbtNoite.setEnabled(false);
+           txtReg.requestFocus();
+           
+           btnConsultar.setEnabled(true);
+           btnInserir.setEnabled(false);
+           btnAlterar.setEnabled(false);
+           btnExcluir.setEnabled(false);
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
@@ -298,6 +446,7 @@ public class GuiRecepcionista extends javax.swing.JFrame {
     private PreparaConexao prepCon=null;
     private Recepcionista recepcionista = null;
     private DaoRecepcionista daoRecepcionista =null;
+    //private ArrayList<Registro> registros;
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterar;
@@ -311,12 +460,12 @@ public class GuiRecepcionista extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JLabel lblEndereco;
-    private javax.swing.JLabel lblNome;
-    private javax.swing.JLabel lblTelefone;
     private javax.swing.JRadioButton rbtManha;
     private javax.swing.JRadioButton rbtNoite;
     private javax.swing.JRadioButton rbtTarde;
+    private javax.swing.JTextField txtEndereco;
+    private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtReg;
+    private javax.swing.JTextField txtTelefone;
     // End of variables declaration//GEN-END:variables
 }
