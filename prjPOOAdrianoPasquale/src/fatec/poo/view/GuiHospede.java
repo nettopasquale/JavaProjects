@@ -287,9 +287,11 @@ public class GuiHospede extends javax.swing.JFrame {
 
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
         hospede = null;
-        hospede = daoHospede.consultar(ftxCPF.getText());
-        
-        if(hospede == null){
+        try{
+            hospede.validarCPF(ftxCPF.getText());
+            hospede = daoHospede.consultar(ftxCPF.getText());
+            
+                    if(hospede == null){
             ftxCPF.setEnabled(false);
             txtNome.setEnabled(true);
             txtEndereco.setEnabled(true);
@@ -320,6 +322,12 @@ public class GuiHospede extends javax.swing.JFrame {
             btnAlterar.setEnabled(true);
             btnExcluir.setEnabled(true);
         }
+            
+        }catch(Error e){
+            System.out.println(e.toString());
+        }
+        
+
     }//GEN-LAST:event_btnConsultarActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened

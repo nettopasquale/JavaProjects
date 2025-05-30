@@ -246,35 +246,41 @@ public class GuiServicoQuarto extends javax.swing.JFrame {
 
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
        servico = null;
-       servico = daoServicoQuarto.consultar(Integer.parseInt(txtCodigo.getText()));
+       try{
+        servico = daoServicoQuarto.consultar(Integer.parseInt(txtCodigo.getText()));
+
+        if(servico == null){
+            txtCodigo.setEnabled(false);
+            cbxDescricao.setEnabled(true);
+            txtValor.setEnabled(true);
+            txtCodigo.requestFocus();
+
+            btnConsultar.setEnabled(false);
+            btnInserir.setEnabled(true);
+            btnAlterar.setEnabled(false);
+            btnExcluir.setEnabled(false);
+        }else{
+            cbxDescricao.setSelectedItem(servico.getDescricao());
+            txtValor.setText(String.valueOf(servico.getValor()));
+
+            // guardar posição do serviço selecionado no combobox
+            posServico = cbxDescricao.getSelectedIndex();
+
+            txtCodigo.setEnabled(false);
+            cbxDescricao.setEnabled(true);
+            txtValor.setEnabled(true);
+            txtCodigo.requestFocus();
+
+            btnConsultar.setEnabled(false);
+            btnInserir.setEnabled(false);
+            btnAlterar.setEnabled(true);
+            btnExcluir.setEnabled(true);
+
+        }
        
-       if(servico == null){
-           txtCodigo.setEnabled(false);
-           cbxDescricao.setEnabled(true);
-           txtValor.setEnabled(true);
-           txtCodigo.requestFocus();
-           
-           btnConsultar.setEnabled(false);
-           btnInserir.setEnabled(true);
-           btnAlterar.setEnabled(false);
-           btnExcluir.setEnabled(false);
-       }else{
-           cbxDescricao.setSelectedItem(servico.getDescricao());
-           txtValor.setText(String.valueOf(servico.getValor()));
-           
-           // guardar posição do serviço selecionado no combobox
-           posServico = cbxDescricao.getSelectedIndex();
-           
-           txtCodigo.setEnabled(false);
-           cbxDescricao.setEnabled(true);
-           txtValor.setEnabled(true);
-           txtCodigo.requestFocus();
-           
-           btnConsultar.setEnabled(false);
-           btnInserir.setEnabled(false);
-           btnAlterar.setEnabled(true);
-           btnExcluir.setEnabled(true);
-           
+       }
+       catch(NumberFormatException ex){
+           System.out.println(ex.toString());
        }
     }//GEN-LAST:event_btnConsultarActionPerformed
 

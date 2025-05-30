@@ -272,50 +272,56 @@ public class GuiRecepcionista extends javax.swing.JFrame {
 
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
        recepcionista = null;
-       recepcionista = daoRecepcionista.consultar(Integer.parseInt(txtReg.getText()));
-       
-       if(recepcionista == null){
-           txtReg.setEnabled(false);
-           txtNome.setEnabled(true);
-           txtEndereco.setEnabled(true);
-           txtTelefone.setEnabled(true);
-           rbtManha.setEnabled(true);
-           rbtTarde.setEnabled(false);
-           rbtNoite.setEnabled(false);
-           txtReg.requestFocus();
-           
-           btnConsultar.setEnabled(false);
-           btnInserir.setEnabled(true);
-           btnAlterar.setEnabled(false);
-           btnExcluir.setEnabled(false);
-       }
-       else{
-           txtNome.setText(recepcionista.getNome());
-           txtEndereco.setText(recepcionista.getEndereco());
-           txtTelefone.setText(recepcionista.getTelefone());
-           
-           if(recepcionista.getTurno().equals("M")){
-              rbtManha.setSelected(true);
-           }else if(recepcionista.getTurno().equals("T")){
-              rbtTarde.setSelected(true);
-           }else{
-              rbtNoite.setSelected(true);
-           }
-           
-           txtReg.setEnabled(false);
-           txtNome.setEnabled(true);
-           txtEndereco.setEnabled(true);
-           txtTelefone.setEnabled(true);
-           rbtManha.setEnabled(true);
-           rbtTarde.setEnabled(true);
-           rbtNoite.setEnabled(true);
-           txtReg.requestFocus();
-           
-           btnConsultar.setEnabled(false);
-           btnInserir.setEnabled(false);
-           btnAlterar.setEnabled(true);
-           btnExcluir.setEnabled(true);
+       try{
+        recepcionista = daoRecepcionista.consultar(Integer.parseInt(txtReg.getText()));
 
+        if(recepcionista == null){
+            txtReg.setEnabled(false);
+            txtNome.setEnabled(true);
+            txtEndereco.setEnabled(true);
+            txtTelefone.setEnabled(true);
+            rbtManha.setEnabled(true);
+            rbtTarde.setEnabled(false);
+            rbtNoite.setEnabled(false);
+            txtReg.requestFocus();
+
+            btnConsultar.setEnabled(false);
+            btnInserir.setEnabled(true);
+            btnAlterar.setEnabled(false);
+            btnExcluir.setEnabled(false);
+        }
+        else{
+            txtNome.setText(recepcionista.getNome());
+            txtEndereco.setText(recepcionista.getEndereco());
+            txtTelefone.setText(recepcionista.getTelefone());
+
+            if(recepcionista.getTurno().equals("M")){
+               rbtManha.setSelected(true);
+            }else if(recepcionista.getTurno().equals("T")){
+               rbtTarde.setSelected(true);
+            }else{
+               rbtNoite.setSelected(true);
+            }
+
+            txtReg.setEnabled(false);
+            txtNome.setEnabled(true);
+            txtEndereco.setEnabled(true);
+            txtTelefone.setEnabled(true);
+            rbtManha.setEnabled(true);
+            rbtTarde.setEnabled(true);
+            rbtNoite.setEnabled(true);
+            txtReg.requestFocus();
+
+            btnConsultar.setEnabled(false);
+            btnInserir.setEnabled(false);
+            btnAlterar.setEnabled(true);
+            btnExcluir.setEnabled(true);
+
+        }
+       
+       }
+       catch(NumberFormatException ex){
+           System.out.println(ex.toString());
        }
     }//GEN-LAST:event_btnConsultarActionPerformed
 
