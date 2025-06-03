@@ -153,9 +153,9 @@ public class GuiDepartamento extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        prepCon = new PreparaConexao("Dimas","Objetopo");
+        prepCon = new PreparaConexao("BD2321003","BD2321003");
         prepCon.setDriver("oracle.jdbc.driver.OracleDriver");
-        prepCon.setConnectionString("jdbc:oracle:thin:@192.168.0.1:1521:xe");
+        prepCon.setConnectionString("jdbc:oracle:thin:@192.168.1.6:1521:xe");
         daoDepartamento = new DaoDepartamento(prepCon.abrirConexao());
     }//GEN-LAST:event_formWindowOpened
               

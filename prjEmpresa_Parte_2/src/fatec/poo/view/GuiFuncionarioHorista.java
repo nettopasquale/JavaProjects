@@ -295,7 +295,7 @@ public class GuiFuncionarioHorista extends javax.swing.JFrame {
            txtRegistro.setEnabled(false);
            txtNome.setEnabled(true);
            rbtFeminino.setEnabled(true);
-           rbtMasculino.setEnabled(false);
+           rbtMasculino.setEnabled(true);
            txtDtAdmissao.setEnabled(true);
            txtCargo.setEnabled(true);
            txtValHorTrab.setEnabled(true);
@@ -350,6 +350,8 @@ public class GuiFuncionarioHorista extends javax.swing.JFrame {
         }else{
             funcHor.setSexo("M");
         }
+        
+        
         
         //estabelece a associação binária bidirecional entre
         //funcionario horista e departamento
