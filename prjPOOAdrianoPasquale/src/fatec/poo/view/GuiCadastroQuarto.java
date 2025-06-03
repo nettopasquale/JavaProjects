@@ -192,118 +192,204 @@ public class GuiCadastroQuarto extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
-        quarto = null;
-        
-        try{
-            //tenta converter o texto de txtNQuarto
-            quarto = daoQuarto.consultar(Integer.parseInt(txtNQuarto.getText()));
-            
-        if(quarto == null){
-            txtNQuarto.setEnabled(false);
-            txtDiaria.setEnabled(true);
-            rdbSolteiro.setEnabled(true);
-            rdbCasal.setEnabled(false);
-            
-            btnConsultar.setEnabled(false);
-            btnInserir.setEnabled(true);
-            btnAlterar.setEnabled(false);
-            btnExcluir.setEnabled(false);
+        int numQuarto;
+        try {
+            if (txtNQuarto.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Número do Quarto deve ser informado.", "Atenção", JOptionPane.WARNING_MESSAGE);
+                txtNQuarto.requestFocus();
+                return;
+            }
+            numQuarto = Integer.parseInt(txtNQuarto.getText());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Número do Quarto inválido! Informe um valor numérico inteiro.", "Erro de Entrada", JOptionPane.ERROR_MESSAGE);
+            txtNQuarto.requestFocus();
+            return;
         }
-        else{
+
+        quarto = daoQuarto.consultar(numQuarto);
+
+        if (quarto != null) {
             txtDiaria.setText(String.valueOf(quarto.getValorDiaria()));
+            if (quarto.getTipo().equals("S")) {
+                rdbSolteiro.setSelected(true);
+            } else {
+                rdbCasal.setSelected(true);
+            }
             
             txtNQuarto.setEnabled(false);
             txtDiaria.setEnabled(true);
             rdbSolteiro.setEnabled(true);
             rdbCasal.setEnabled(true);
-            txtDiaria.requestFocus();
-            
-            btnConsultar.setEnabled(true);
+            btnConsultar.setEnabled(false);
             btnInserir.setEnabled(false);
             btnAlterar.setEnabled(true);
             btnExcluir.setEnabled(true);
-            }   
-        
-        }
-        catch(NumberFormatException ex){
-            System.out.println(ex.toString());
+            
+            txtDiaria.requestFocus(); 
+        } else {
+            JOptionPane.showMessageDialog(this, "Quarto não cadastrado. Prossiga com a inserção.", "Informação", JOptionPane.INFORMATION_MESSAGE);
+            txtDiaria.setText("");
+            rdbSolteiro.setSelected(true);
+
+            
+            txtNQuarto.setEnabled(false);
+            txtDiaria.setEnabled(true);
+            rdbSolteiro.setEnabled(true);
+            rdbCasal.setEnabled(true);
+            btnConsultar.setEnabled(false);
+            btnInserir.setEnabled(true);
+            btnAlterar.setEnabled(false);
+            btnExcluir.setEnabled(false);
+            
+            txtDiaria.requestFocus();
         }
     }//GEN-LAST:event_btnConsultarActionPerformed
 
     private void btnInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirActionPerformed
+        int numQuarto = Integer.parseInt(txtNQuarto.getText());
+        double valDiaria;
+        String tipoQuarto;
 
-        String tipo = "";
-        if(rdbSolteiro.isSelected()){
-            tipo = "S";
-        }else {
-            tipo = "D";
+        try {
+            if (txtDiaria.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this, 
+                        "Valor da diária deve ser informado.", 
+                        "Atenção", JOptionPane.WARNING_MESSAGE);
+                txtDiaria.requestFocus();
+                return;
+            }
+            valDiaria = Double.parseDouble(txtDiaria.getText().replace(",", "."));
+            if (valDiaria <= 0) {
+                JOptionPane.showMessageDialog(this, 
+                        "Valor da diária deve ser positivo.", "Atenção",
+                        JOptionPane.WARNING_MESSAGE);
+                txtDiaria.requestFocus();
+                return;
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Valor da diária inválido!",
+                    "Erro de Entrada", JOptionPane.ERROR_MESSAGE);
+            txtDiaria.requestFocus();
+            return;
         }
-        
-        quarto = new Quarto(Integer.parseInt(txtNQuarto.getText()),"", 
-                Double.parseDouble(txtDiaria.getText()));
-        
-        quarto.setTipo(tipo);
+
+        if (rdbSolteiro.isSelected()) {
+            tipoQuarto = "S";
+        } else {
+            tipoQuarto = "D";
+        }
+
+        quarto = new Quarto(numQuarto, tipoQuarto, valDiaria);
         
         daoQuarto.inserir(quarto);
-        
-        txtNQuarto.setText(null);
-        txtDiaria.setText(null);
+        JOptionPane.showMessageDialog(this, "Quarto inserido com sucesso!", 
+                "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+
+        txtNQuarto.setText("");
+        txtDiaria.setText("");
         rdbSolteiro.setSelected(true);
-        btnInserir.setEnabled(false);
+        
         txtNQuarto.setEnabled(true);
         txtDiaria.setEnabled(false);
         rdbSolteiro.setEnabled(false);
         rdbCasal.setEnabled(false);
-        txtNQuarto.requestFocus();
-        
         btnConsultar.setEnabled(true);
+        btnInserir.setEnabled(false);
         btnAlterar.setEnabled(false);
         btnExcluir.setEnabled(false);
+        txtNQuarto.requestFocus();
+        
+        quarto = null;
     }//GEN-LAST:event_btnInserirActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
-        if(JOptionPane.showConfirmDialog(null, "Confirma Alteração?") == 0){
-            //Se sets Tipo e valorDiária não forem corretos, mudar aqui.
-            quarto.setValorDiaria(Double.parseDouble(txtDiaria.getText()));
-            if(rdbSolteiro.isSelected()){
-                quarto.setTipo("S");
-            }else{
-                quarto.setTipo("D");
+        if (JOptionPane.showConfirmDialog(null, 
+                "Confirma Alteração dos Dados do Quarto?") == 0) {
+            double valDiaria;
+            String tipoQuarto;
+
+            try {
+                if (txtDiaria.getText().trim().isEmpty()) {
+                    JOptionPane.showMessageDialog(this, 
+                            "Valor da diária deve ser informado.", 
+                            "Atenção", JOptionPane.WARNING_MESSAGE);
+                    txtDiaria.requestFocus();
+                    return;
+                }
+                valDiaria = Double.parseDouble(txtDiaria.getText().replace(",", "."));
+                 if (valDiaria <= 0) {
+                    JOptionPane.showMessageDialog(this, 
+                            "Valor da diária deve ser positivo.", 
+                            "Atenção", JOptionPane.WARNING_MESSAGE);
+                    txtDiaria.requestFocus();
+                    return;
+                }
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Valor da diária inválido!", 
+                        "Erro de Entrada", JOptionPane.ERROR_MESSAGE);
+                txtDiaria.requestFocus();
+                return;
             }
 
+            if (rdbSolteiro.isSelected()) {
+                tipoQuarto = "S";
+            } else {
+                tipoQuarto = "D";
+            }
+            
+            
+            quarto.setTipo(tipoQuarto);
+            quarto.setValorDiaria(valDiaria);
+            quarto.setSituacao(quarto.getSituacao()); 
+            quarto.setTotalFaturado(quarto.getTotalFaturado());
+
             daoQuarto.alterar(quarto);
+
+            JOptionPane.showMessageDialog(this, 
+                    "Dados do quarto alterados com sucesso!", 
+                    "Sucesso", JOptionPane.INFORMATION_MESSAGE);
         }
-        
-        txtNQuarto.setText(null);
-        txtDiaria.setText(null);
+
+        txtNQuarto.setText("");
+        txtDiaria.setText("");
         rdbSolteiro.setSelected(true);
+        
         txtNQuarto.setEnabled(true);
         txtDiaria.setEnabled(false);
         rdbSolteiro.setEnabled(false);
         rdbCasal.setEnabled(false);
-        
         btnConsultar.setEnabled(true);
         btnInserir.setEnabled(false);
         btnAlterar.setEnabled(false);
         btnExcluir.setEnabled(false);
+        txtNQuarto.requestFocus();
+        
+        quarto = null;
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        if(JOptionPane.showConfirmDialog(null, "Confirma Exclusão?") == 0){
+        if (JOptionPane.showConfirmDialog(null, 
+                "Confirma a exclusão dos dados do Quarto?") == 0) {
             daoQuarto.excluir(quarto);
+            JOptionPane.showMessageDialog(this, "Quarto excluído com sucesso!",
+                    "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+
+            txtNQuarto.setText("");
+            txtDiaria.setText("");
+            rdbSolteiro.setSelected(true);
+
+            txtNQuarto.setEnabled(true);
+            txtDiaria.setEnabled(false);
+            rdbSolteiro.setEnabled(false);
+            rdbCasal.setEnabled(false);
+            btnConsultar.setEnabled(true);
+            btnInserir.setEnabled(false);
+            btnAlterar.setEnabled(false);
+            btnExcluir.setEnabled(false);
+            txtNQuarto.requestFocus();
+            
+            quarto = null;
         }
-        txtNQuarto.setText(null);
-        txtDiaria.setText(null);
-        txtNQuarto.setEnabled(true);
-        txtDiaria.setEnabled(false);
-        rdbSolteiro.setEnabled(false);
-        rdbCasal.setEnabled(false);
-        txtNQuarto.requestFocus();
-        
-        btnConsultar.setEnabled(true);
-        btnInserir.setEnabled(true);
-        btnAlterar.setEnabled(true);
-        btnExcluir.setEnabled(true);
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
@@ -315,6 +401,20 @@ public class GuiCadastroQuarto extends javax.swing.JFrame {
         prepCon.setDriver("oracle.jdbc.driver.OracleDriver");
         prepCon.setConnectionString("jdbc:oracle:thin:@192.168.1.6:1521:xe");
         daoQuarto= new DaoQuarto(prepCon.abrirConexao());
+        
+       txtNQuarto.setEnabled(true);
+       txtDiaria.setEnabled(false);
+       rdbSolteiro.setEnabled(false);
+       rdbCasal.setEnabled(false);
+       
+       btnConsultar.setEnabled(true);
+       btnInserir.setEnabled(false);
+       btnAlterar.setEnabled(false);
+       btnExcluir.setEnabled(false);
+       btnSair.setEnabled(true);
+       
+       rdbSolteiro.setSelected(true);
+       txtNQuarto.requestFocus();
     }//GEN-LAST:event_formWindowOpened
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed

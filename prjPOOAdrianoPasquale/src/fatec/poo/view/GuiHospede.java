@@ -291,7 +291,7 @@ public class GuiHospede extends javax.swing.JFrame {
             hospede.validarCPF(ftxCPF.getText());
             hospede = daoHospede.consultar(ftxCPF.getText());
             
-                    if(hospede == null){
+            if(hospede == null){
             ftxCPF.setEnabled(false);
             txtNome.setEnabled(true);
             txtEndereco.setEnabled(true);

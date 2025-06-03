@@ -177,67 +177,132 @@ public class GuiServicoQuarto extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirActionPerformed
-        servico = new ServicoQuarto(Integer.parseInt(txtCodigo.getText()), 
-                cbxDescricao.getSelectedItem().toString());
+     int codigo = Integer.parseInt(txtCodigo.getText()); 
+        String descricao = (String) cbxDescricao.getSelectedItem();
+        double valor;
+
+        try {
+            if (txtValor.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this, 
+                        "Valor do serviço deve ser informado.", 
+                        "Atenção", JOptionPane.WARNING_MESSAGE);
+                txtValor.requestFocus();
+                return;
+            }
+            valor = Double.parseDouble(txtValor.getText().replace(",", "."));
+            if (valor < 0) {
+                 JOptionPane.showMessageDialog(this, 
+                         "Valor do serviço não pode ser negativo.", 
+                         "Atenção", JOptionPane.WARNING_MESSAGE);
+                txtValor.requestFocus();
+                return;
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Valor do serviço inválido!",
+                    "Erro de Entrada", JOptionPane.ERROR_MESSAGE);
+            txtValor.requestFocus();
+            return;
+        }
         
-        servico.setValor(Double.parseDouble(txtValor.getText()));
+        servico = new ServicoQuarto(codigo, descricao);
+        servico.setValor(valor);
         
         daoServicoQuarto.inserir(servico);
-        
-        txtCodigo.setText(null);
+        JOptionPane.showMessageDialog(this, 
+                "Serviço de Quarto inserido com sucesso!", "Sucesso",
+                JOptionPane.INFORMATION_MESSAGE);
+
+        txtCodigo.setText("");
         cbxDescricao.setSelectedIndex(0);
-        txtValor.setText(null);
+        txtValor.setText("");
+        
         txtCodigo.setEnabled(true);
         cbxDescricao.setEnabled(false);
         txtValor.setEnabled(false);
-        txtCodigo.requestFocus();
-           
         btnConsultar.setEnabled(true);
         btnInserir.setEnabled(false);
         btnAlterar.setEnabled(false);
         btnExcluir.setEnabled(false);
         
+        txtCodigo.requestFocus();
         
+        servico = null;
     }//GEN-LAST:event_btnInserirActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
-        if(JOptionPane.showConfirmDialog(null, "Confirma Alteração?") == 0){
-            servico.setValor(Double.parseDouble(txtValor.getText()));
+       if (JOptionPane.showConfirmDialog(null, 
+               "Confirma Alteração dos Dados do Serviço de Quarto?") == 0) {
+            String novaDescricao = (String) cbxDescricao.getSelectedItem();
+            double novoValor;
+
+            try {
+                if (txtValor.getText().trim().isEmpty()) {
+                    JOptionPane.showMessageDialog(this, 
+                            "Valor do serviço deve ser informado.", 
+                            "Atenção", JOptionPane.WARNING_MESSAGE);
+                    txtValor.requestFocus();
+                    return;
+                }
+                novoValor = Double.parseDouble(txtValor.getText().replace(",", "."));
+                if (novoValor < 0) {
+                    JOptionPane.showMessageDialog(this, 
+                            "Valor do serviço não pode ser negativo.", 
+                            "Atenção", JOptionPane.WARNING_MESSAGE);
+                    txtValor.requestFocus();
+                    return;
+                }
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Valor do serviço inválido!", 
+                        "Erro de Entrada", JOptionPane.ERROR_MESSAGE);
+                txtValor.requestFocus();
+                return;
+            }
+            
+            servico.setDescricao(novaDescricao);
+            servico.setValor(novoValor);
             
             daoServicoQuarto.alterar(servico);
+            JOptionPane.showMessageDialog(this, 
+                    "Serviço de Quarto alterado com sucesso!", "Sucesso", 
+                    JOptionPane.INFORMATION_MESSAGE);
         }
-        
-        txtCodigo.setText(null);
+        txtCodigo.setText("");
         cbxDescricao.setSelectedIndex(0);
-        txtValor.setText(null);
+        txtValor.setText("");
+        
         txtCodigo.setEnabled(true);
         cbxDescricao.setEnabled(false);
         txtValor.setEnabled(false);
-        txtCodigo.requestFocus();
-           
         btnConsultar.setEnabled(true);
         btnInserir.setEnabled(false);
         btnAlterar.setEnabled(false);
         btnExcluir.setEnabled(false);
+        txtCodigo.requestFocus();
+        servico = null;
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        if(JOptionPane.showConfirmDialog(null, "Confirma Exclusão?") == 0){
+        if (JOptionPane.showConfirmDialog(null, 
+                "Confirma Exclusão do Serviço de Quarto?") == 0) {
             daoServicoQuarto.excluir(servico);
+            JOptionPane.showMessageDialog(this, 
+                    "Serviço de Quarto excluído com sucesso!", "Sucesso", 
+                    JOptionPane.INFORMATION_MESSAGE);
+
+            txtCodigo.setText("");
+            cbxDescricao.setSelectedIndex(0);
+            txtValor.setText("");
+
+            txtCodigo.setEnabled(true);
+            cbxDescricao.setEnabled(false);
+            txtValor.setEnabled(false);
+            btnConsultar.setEnabled(true);
+            btnInserir.setEnabled(false);
+            btnAlterar.setEnabled(false);
+            btnExcluir.setEnabled(false);
+            txtCodigo.requestFocus();
+            servico = null;
         }
-        
-        txtCodigo.setText(null);
-        cbxDescricao.setSelectedIndex(0);
-        txtValor.setText(null);
-        txtCodigo.setEnabled(true);
-        cbxDescricao.setEnabled(false);
-        txtValor.setEnabled(false);
-        txtCodigo.requestFocus();
-           
-        btnConsultar.setEnabled(true);
-        btnInserir.setEnabled(false);
-        btnAlterar.setEnabled(false);
-        btnExcluir.setEnabled(false);
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
@@ -245,43 +310,58 @@ public class GuiServicoQuarto extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSairActionPerformed
 
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
-       servico = null;
-       try{
-        servico = daoServicoQuarto.consultar(Integer.parseInt(txtCodigo.getText()));
-
-        if(servico == null){
-            txtCodigo.setEnabled(false);
-            cbxDescricao.setEnabled(true);
-            txtValor.setEnabled(true);
+        int codigo;
+        try {
+            if (txtCodigo.getText().trim().isEmpty()){
+                JOptionPane.showMessageDialog(this, 
+                        "Código do Serviço deve ser informado.", 
+                        "Atenção", JOptionPane.WARNING_MESSAGE);
+                txtCodigo.requestFocus();
+                return;
+            }
+            codigo = Integer.parseInt(txtCodigo.getText());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, 
+                    "Código do Serviço inválido! Informe um valor numérico inteiro.", 
+                    "Erro de Entrada", JOptionPane.ERROR_MESSAGE);
             txtCodigo.requestFocus();
+            return;
+        }
 
-            btnConsultar.setEnabled(false);
-            btnInserir.setEnabled(true);
-            btnAlterar.setEnabled(false);
-            btnExcluir.setEnabled(false);
-        }else{
+        servico = daoServicoQuarto.consultar(codigo);
+
+        if (servico != null) {
             cbxDescricao.setSelectedItem(servico.getDescricao());
             txtValor.setText(String.valueOf(servico.getValor()));
-
-            // guardar posição do serviço selecionado no combobox
-            posServico = cbxDescricao.getSelectedIndex();
-
+            
             txtCodigo.setEnabled(false);
             cbxDescricao.setEnabled(true);
             txtValor.setEnabled(true);
-            txtCodigo.requestFocus();
 
             btnConsultar.setEnabled(false);
             btnInserir.setEnabled(false);
             btnAlterar.setEnabled(true);
             btnExcluir.setEnabled(true);
+            
+            cbxDescricao.requestFocus();
+        } else { 
+            JOptionPane.showMessageDialog(this, 
+                    "Serviço de Quarto não cadastrado. Prossiga com a inserção.", 
+                    "Informação", JOptionPane.INFORMATION_MESSAGE);
+            cbxDescricao.setSelectedIndex(0);
+            txtValor.setText("");
 
+            txtCodigo.setEnabled(false);
+            cbxDescricao.setEnabled(true);
+            txtValor.setEnabled(true);
+
+            btnConsultar.setEnabled(false);
+            btnInserir.setEnabled(true);
+            btnAlterar.setEnabled(false);
+            btnExcluir.setEnabled(false);
+            
+            cbxDescricao.requestFocus();
         }
-       
-       }
-       catch(NumberFormatException ex){
-           System.out.println(ex.toString());
-       }
     }//GEN-LAST:event_btnConsultarActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
@@ -289,6 +369,19 @@ public class GuiServicoQuarto extends javax.swing.JFrame {
         prepCon.setDriver("oracle.jdbc.driver.OracleDriver");
         prepCon.setConnectionString("jdbc:oracle:thin:@192.168.1.6:1521:xe");
         daoServicoQuarto = new DaoServicoQuarto(prepCon.abrirConexao());
+        
+       txtCodigo.setEnabled(true);
+       cbxDescricao.setEnabled(false);
+       txtValor.setEnabled(false);
+
+       btnConsultar.setEnabled(btnConsultar.isEnabled());
+       btnInserir.setEnabled(false);
+       btnAlterar.setEnabled(false);
+       btnExcluir.setEnabled(false);
+       btnSair.setEnabled(true);
+       
+       txtCodigo.requestFocus();
+       cbxDescricao.setSelectedIndex(0);
     }//GEN-LAST:event_formWindowOpened
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
