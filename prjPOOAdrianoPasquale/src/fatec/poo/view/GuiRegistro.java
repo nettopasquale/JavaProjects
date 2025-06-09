@@ -210,7 +210,8 @@ public class GuiRegistro extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(btnConsultar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnConsultar, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(202, 202, 202))
         );
         layout.setVerticalGroup(
@@ -234,7 +235,7 @@ public class GuiRegistro extends javax.swing.JFrame {
                             .addComponent(btnPesquisaReg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblCPF, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
+                    .addComponent(lblCPF, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel3)
                         .addComponent(ftxCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -412,12 +413,12 @@ public class GuiRegistro extends javax.swing.JFrame {
         int funcRegGui;
         funcRegGui = Integer.parseInt(txtReg.getText());
         
-        //Devo procurar em registros(array?)
         recepcionista = daoRegistro.consultar(Integer.parseInt(
                 txtCodigo.getText())).getRecepcionista();
         
         
         if(funcRegGui != recepcionista.getRegFunc()){
+            //TO_DO try catch com mensagem
             lblReg.setText("Recepcionista não cadastrado.");
             
             txtReg.setEnabled(true);
@@ -448,6 +449,7 @@ public class GuiRegistro extends javax.swing.JFrame {
                 txtCodigo.getText())).getHospede();
         
         if(cpfGui != hospede.getCpf()){
+            //to_do try catch
             lblCPF.setText("Hóspede não cadastrado");
             
             ftxCPF.setEnabled(true);
@@ -478,6 +480,7 @@ public class GuiRegistro extends javax.swing.JFrame {
                 txtCodigo.getText())).getQuarto();
         
         if(nQuartoGui != quarto.getNumero()){
+            //to_do try catch
             lblSituacao.setText("Quarto não cadastrado");
             
             txtNQuarto.setEnabled(true);

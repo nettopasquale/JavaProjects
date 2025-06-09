@@ -29,5 +29,15 @@ create table tblServicoQuarto(
 );
 
 
+create table tblRegistro(
+    Codigo_Registro number(4,0) PRIMARY KEY,
+    DataEntrada_Registro date,
+    DataSaida_Registro date,
+    Recepcionista_Registro number(4,0),
+    ValorHospedagem_Registro number(6,2)
+);
 
+select * from tblRegistro;
+ALTER TABLE tblRegistro ADD CONSTRAINT fk_recepcionista 
+FOREIGN KEY(Recepcionista_Registro)REFERENCES tblRecepcionista(RegFunc_Recep);
 

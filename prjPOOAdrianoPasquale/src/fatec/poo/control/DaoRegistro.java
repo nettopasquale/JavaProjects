@@ -29,12 +29,13 @@ public class DaoRegistro {
         PreparedStatement ps = null;
         try{
             ps = conn.prepareStatement("INSERT INTO tblRegistro(Codigo_Registro, "
-                    + "DataEntrada_Registro, DataSaida_Registro,"
+                    + "DataEntrada_Registro, DataSaida_Registro, Recepcionista_Registro"
                     + "ValorHospedagem_Registro) VALUES(?,?,?,?)");
             ps.setInt(1, registro.getCodigo());
             ps.setDate(2, Date.valueOf(registro.getDataEntrada()));
             ps.setDate(3, Date.valueOf(registro.getDataSaida()));
-            ps.setDouble(4, registro.getValorHospedagem());
+            ps.setInt(4, registro.getRecepcionista().getRegFunc());
+            ps.setDouble(5, registro.getValorHospedagem());
         
             ps.execute();
         }catch(SQLException ex){
@@ -46,14 +47,16 @@ public class DaoRegistro {
         PreparedStatement ps;
         try{
             ps = conn.prepareStatement("UPDATE tblRegistro set " + "DataEntrada_Registro = ?, " +
-                                       "DataSaida_Registro = ?, " +
+                                       "DataSaida_Registro = ?, "+ 
+                                       "Recepcionista_Registro = ?" +
                                        "ValorHospedagem_Registro = ? " + 
                                        "where Codigo_Registro = ?");
             
             ps.setDate(1, Date.valueOf(registro.getDataEntrada()));
             ps.setDate(2, Date.valueOf(registro.getDataSaida()));
-            ps.setDouble(3, registro.getValorHospedagem());
-            ps.setInt(4, registro.getCodigo());
+            ps.setInt(3, registro.getRecepcionista().getRegFunc());
+            ps.setDouble(4, registro.getValorHospedagem());
+            ps.setInt(5, registro.getCodigo());
             
             ps.execute();
         }catch(SQLException ex){
