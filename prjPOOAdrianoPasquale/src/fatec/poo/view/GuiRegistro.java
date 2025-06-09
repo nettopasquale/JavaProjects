@@ -4,6 +4,14 @@
  */
 package fatec.poo.view;
 
+import fatec.poo.control.PreparaConexao;
+import fatec.poo.model.Registro;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import fatec.poo.control.DaoRegistro;
+import fatec.poo.model.Hospede;
+import fatec.poo.model.Quarto;
+import fatec.poo.model.Recepcionista;
 /**
  *
  * @author Pasquale
@@ -91,14 +99,34 @@ public class GuiRegistro extends javax.swing.JFrame {
 
         btnConsultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/pesq.png"))); // NOI18N
         btnConsultar.setText("Consultar");
+        btnConsultar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConsultarActionPerformed(evt);
+            }
+        });
 
         btnPesquisaReg.setText("...");
+        btnPesquisaReg.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPesquisaRegActionPerformed(evt);
+            }
+        });
 
         btnPesquisaCPF.setText("...");
+        btnPesquisaCPF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPesquisaCPFActionPerformed(evt);
+            }
+        });
 
         jLabel9.setText("Situação");
 
         btnPesquisaSituacao.setText("...");
+        btnPesquisaSituacao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPesquisaSituacaoActionPerformed(evt);
+            }
+        });
 
         lblReg.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
@@ -108,12 +136,27 @@ public class GuiRegistro extends javax.swing.JFrame {
 
         btnReservar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/add.png"))); // NOI18N
         btnReservar.setText("Reservar");
+        btnReservar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReservarActionPerformed(evt);
+            }
+        });
 
         btnLiberar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/rem.png"))); // NOI18N
         btnLiberar.setText("Liberar");
+        btnLiberar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLiberarActionPerformed(evt);
+            }
+        });
 
         btnSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/exit.png"))); // NOI18N
         btnSair.setText("Sair");
+        btnSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSairActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -190,18 +233,20 @@ public class GuiRegistro extends javax.swing.JFrame {
                             .addComponent(lblReg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnPesquisaReg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(ftxCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnPesquisaCPF)
-                    .addComponent(lblCPF, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblCPF, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel3)
+                        .addComponent(ftxCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnPesquisaCPF)))
                 .addGap(33, 33, 33)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(txtNQuarto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblSituacao, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnPesquisaSituacao))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel4)
+                        .addComponent(txtNQuarto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel9)
+                        .addComponent(btnPesquisaSituacao)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
@@ -226,12 +271,243 @@ public class GuiRegistro extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        //
+        prepcon.fecharConexao();
     }//GEN-LAST:event_formWindowClosed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        // TODO add your handling code here:
+        prepcon = new PreparaConexao("BD2321003","BD2321003");
+        prepcon.setDriver("oracle.jdbc.driver.OracleDriver");
+        prepcon.setConnectionString("jdbc:oracle:thin:@192.168.1.6:1521:xe");
+        daoRegistro = new DaoRegistro(prepcon.abrirConexao());
+        
+       txtReg.setEnabled(true);
+       lblCPF.setEnabled(false);
+       txtNQuarto.setEnabled(false);
+       ftxDataE.setEnabled(false);
+       ftxDataS.setEnabled(false);
+       lblValHospedagem.setEnabled(false);
+       
+       btnConsultar.setEnabled(true);
+       btnReservar.setEnabled(false);
+       btnLiberar.setEnabled(false);
+       btnPesquisaReg.setEnabled(false);
+       btnPesquisaCPF.setEnabled(false);
+       btnPesquisaSituacao.setEnabled(false);
+       btnSair.setEnabled(true);
+       txtReg.requestFocus();
     }//GEN-LAST:event_formWindowOpened
+
+    private void btnReservarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReservarActionPerformed
+        //reservado
+        registro.reservarQuarto(hospede, quarto);
+    }//GEN-LAST:event_btnReservarActionPerformed
+
+    private void btnLiberarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLiberarActionPerformed
+        //reservado
+        registro.liberarQuarto();
+    }//GEN-LAST:event_btnLiberarActionPerformed
+
+    private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
+        dispose();
+    }//GEN-LAST:event_btnSairActionPerformed
+
+    private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
+        int codigo;
+        
+        try{
+            if(txtCodigo.getText().trim().isEmpty()){
+                JOptionPane.showConfirmDialog(this, "Codigo de registro deve ser informado.", 
+                        "Atencao", JOptionPane.WARNING_MESSAGE);
+                txtCodigo.requestFocus();
+                return;
+            }
+            codigo = Integer.parseInt(txtCodigo.getText());
+        }catch(NumberFormatException e){
+        JOptionPane.showMessageDialog(this, 
+                "Código de registro invalido! Informe um valor numérico inteiro.",
+                "Erro de entrada", JOptionPane.ERROR_MESSAGE);
+        txtCodigo.requestFocus();
+        return;
+        
+       }
+       registro = daoRegistro.consultar(codigo);
+       
+       if(registro != null){
+           
+           //validação registro funcional
+           try{
+                if(txtReg.getText().trim().isEmpty()){
+                     JOptionPane.showConfirmDialog(this, "Data de registro deve ser informada.", 
+                             "Atencao", JOptionPane.WARNING_MESSAGE);
+                   txtReg.setEnabled(true);
+                   btnConsultar.setEnabled(false);
+                   btnPesquisaReg.setEnabled(true);
+                   btnReservar.setEnabled(true);
+                     txtReg.requestFocus();
+                     return;
+                 }
+            txtReg.setText(String.valueOf(registro.getRecepcionista().getRegFunc()));
+            
+           
+           }catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(this, 
+                 "Registro Funcional Inválido! Informe um valor de inteiro correto.",
+                     "Erro de entrada", JOptionPane.ERROR_MESSAGE);
+             txtReg.requestFocus();
+             return;
+           }
+
+           //validação data de saída
+           try{
+                if(ftxDataS.getText().trim().isEmpty()){
+                     JOptionPane.showConfirmDialog(this, "Data de saída deve ser informada.", 
+                             "Atencao", JOptionPane.WARNING_MESSAGE);
+                     ftxDataS.requestFocus();
+                     return;
+                 }
+               ftxDataS.setText(String.valueOf(registro.getDataEntrada()));
+
+                //Se data Saída for nulo
+               if(ftxDataS == null){
+                   ftxDataS.setEnabled(true);
+                   btnLiberar.setEnabled(true);
+                   ftxDataS.requestFocus();
+               }
+           
+           }catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(this, 
+                 "Data inválida! Informe um valor de data correto.",
+                     "Erro de entrada", JOptionPane.ERROR_MESSAGE);
+             ftxDataS.requestFocus();
+             return;
+           }
+           
+           ftxCPF.setText(registro.getHospede().getCpf());
+           txtNQuarto.setText(String.valueOf(registro.getQuarto().getNumero()));
+           ftxDataE.setText(String.valueOf(registro.getDataSaida()));
+
+       }
+       //n sei se é o correto/bastante, 
+       registros.add(registro);
+       
+       txtReg.setEnabled(false);
+       ftxCPF.setEnabled(true);
+       txtNQuarto.setEnabled(true);
+       ftxDataE.setEnabled(true);
+       ftxDataS.setEnabled(true);
+       lblValHospedagem.setEnabled(true);
+       
+       btnConsultar.setEnabled(false);
+       btnReservar.setEnabled(true);
+       btnLiberar.setEnabled(true);
+       //btnPesquisaReg.setEnabled(true);
+       //btnPesquisaCPF.setEnabled(true);
+       //btnPesquisaSituacao.setEnabled(true);
+       btnSair.setEnabled(true);
+       txtReg.requestFocus();
+        
+    }//GEN-LAST:event_btnConsultarActionPerformed
+
+    private void btnPesquisaRegActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisaRegActionPerformed
+        int funcRegGui;
+        funcRegGui = Integer.parseInt(txtReg.getText());
+        
+        //Devo procurar em registros(array?)
+        recepcionista = daoRegistro.consultar(Integer.parseInt(
+                txtCodigo.getText())).getRecepcionista();
+        
+        
+        if(funcRegGui != recepcionista.getRegFunc()){
+            lblReg.setText("Recepcionista não cadastrado.");
+            
+            txtReg.setEnabled(true);
+            ftxCPF.setEnabled(false);
+            btnPesquisaReg.setEnabled(true);
+            btnPesquisaCPF.setEnabled(false);
+        }else{
+            txtReg.setText(String.valueOf(recepcionista.getRegFunc()));//instancia de recepcionista na GUI
+            lblReg.setText(recepcionista.getNome());
+            txtNQuarto.setText(String.valueOf(registro.getQuarto().getNumero()));
+            ftxDataE.setText(String.valueOf(registro.getDataEntrada()));
+            ftxDataS.setText(String.valueOf(registro.getDataSaida()));
+            
+            txtReg.setEnabled(false);
+            ftxCPF.setEnabled(true);
+            btnPesquisaReg.setEnabled(false);
+            btnPesquisaCPF.setEnabled(true);
+        }
+
+    }//GEN-LAST:event_btnPesquisaRegActionPerformed
+
+    private void btnPesquisaCPFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisaCPFActionPerformed
+        String cpfGui;
+        
+        cpfGui = lblCPF.getText();
+        
+        hospede = daoRegistro.consultar(Integer.parseInt(
+                txtCodigo.getText())).getHospede();
+        
+        if(cpfGui != hospede.getCpf()){
+            lblCPF.setText("Hóspede não cadastrado");
+            
+            ftxCPF.setEnabled(true);
+            txtNQuarto.setEnabled(false);
+            btnPesquisaCPF.setEnabled(true);
+            btnPesquisaSituacao.setEnabled(false);
+        }else{
+            lblCPF.setText(hospede.getNome()); //instancia CPF na label
+            ftxCPF.setText(hospede.getCpf());
+            txtNQuarto.setText(String.valueOf(registro.getQuarto().getNumero()));
+            ftxDataE.setText(String.valueOf(registro.getDataEntrada()));
+            ftxDataS.setText(String.valueOf(registro.getDataSaida()));
+            
+            ftxCPF.setEnabled(false);
+            txtNQuarto.setEnabled(true);
+            btnPesquisaCPF.setEnabled(false);
+            btnPesquisaSituacao.setEnabled(true);
+            
+        }
+    }//GEN-LAST:event_btnPesquisaCPFActionPerformed
+
+    private void btnPesquisaSituacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisaSituacaoActionPerformed
+        int nQuartoGui;
+        
+        nQuartoGui = Integer.parseInt(txtNQuarto.getText());
+        
+        quarto = daoRegistro.consultar(Integer.parseInt(
+                txtCodigo.getText())).getQuarto();
+        
+        if(nQuartoGui != quarto.getNumero()){
+            lblSituacao.setText("Quarto não cadastrado");
+            
+            txtNQuarto.setEnabled(true);
+            ftxDataE.setEnabled(false);
+            ftxDataS.setEnabled(false);
+            btnReservar.setEnabled(false);
+            btnLiberar.setEnabled(false);
+            
+        }else{
+            if(!quarto.getSituacao()){ //false está livre
+                lblSituacao.setText("Quarto livre!");
+                ftxDataE.setEnabled(true);
+                ftxDataS.setEnabled(false);
+                btnReservar.setEnabled(true);
+                btnLiberar.setEnabled(false);
+            
+            }else{ //está reservado
+                lblSituacao.setText("Quarto reservado!");
+                
+                txtNQuarto.setEnabled(true);
+                ftxDataE.setEnabled(false);
+                ftxDataS.setEnabled(true);
+                btnReservar.setEnabled(false);
+                btnLiberar.setEnabled(true);
+            
+            }
+        }
+        
+        
+    }//GEN-LAST:event_btnPesquisaSituacaoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -267,7 +543,15 @@ public class GuiRegistro extends javax.swing.JFrame {
             }
         });
     }
-
+    
+    private PreparaConexao prepcon =null;
+    private Registro registro = null;
+    private DaoRegistro daoRegistro = null;
+    private Hospede hospede = null;
+    private Recepcionista recepcionista = null;
+    private Quarto quarto = null;
+    private ArrayList<Registro> registros;
+    private int posRegistro;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnConsultar;
     private javax.swing.JButton btnLiberar;

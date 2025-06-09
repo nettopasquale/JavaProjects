@@ -534,7 +534,7 @@ public class GuiRecepcionista extends javax.swing.JFrame {
     private PreparaConexao prepCon=null;
     private Recepcionista recepcionista = null;
     private DaoRecepcionista daoRecepcionista =null;
-    //private ArrayList<Registro> registros;
+
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterar;
