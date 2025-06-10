@@ -4,6 +4,9 @@
  */
 package fatec.poo.view;
 
+import fatec.poo.control.DaoHospede;
+import fatec.poo.control.DaoQuarto;
+import fatec.poo.control.DaoRecepcionista;
 import fatec.poo.control.PreparaConexao;
 import fatec.poo.model.Registro;
 import java.util.ArrayList;
@@ -410,106 +413,123 @@ public class GuiRegistro extends javax.swing.JFrame {
     }//GEN-LAST:event_btnConsultarActionPerformed
 
     private void btnPesquisaRegActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisaRegActionPerformed
-        int funcRegGui;
-        funcRegGui = Integer.parseInt(txtReg.getText());
+        recepcionista = new DaoRecepcionista(prepcon.abrirConexao()).consultar(Integer.parseInt(txtCodigo.getText()));
         
-        recepcionista = daoRegistro.consultar(Integer.parseInt(
-                txtCodigo.getText())).getRecepcionista();
-        
-        
-        if(funcRegGui != recepcionista.getRegFunc()){
             //TO_DO try catch com mensagem
-            lblReg.setText("Recepcionista não cadastrado.");
+        try{
+            if(recepcionista == null){
+                JOptionPane.showConfirmDialog(this, "Recepcionista não cadastrado!", 
+                "Atencao", JOptionPane.WARNING_MESSAGE);
+                lblReg.setText("Recepcionista não cadastrado.");
             
-            txtReg.setEnabled(true);
-            ftxCPF.setEnabled(false);
-            btnPesquisaReg.setEnabled(true);
-            btnPesquisaCPF.setEnabled(false);
-        }else{
-            txtReg.setText(String.valueOf(recepcionista.getRegFunc()));//instancia de recepcionista na GUI
-            lblReg.setText(recepcionista.getNome());
-            txtNQuarto.setText(String.valueOf(registro.getQuarto().getNumero()));
-            ftxDataE.setText(String.valueOf(registro.getDataEntrada()));
-            ftxDataS.setText(String.valueOf(registro.getDataSaida()));
-            
-            txtReg.setEnabled(false);
-            ftxCPF.setEnabled(true);
-            btnPesquisaReg.setEnabled(false);
-            btnPesquisaCPF.setEnabled(true);
-        }
+                txtReg.setEnabled(true);
+                ftxCPF.setEnabled(false);
+                btnPesquisaReg.setEnabled(true);
+                btnPesquisaCPF.setEnabled(false);
+                txtCodigo.requestFocus();
+                return;
+            }else{
+                txtReg.setText(String.valueOf(recepcionista.getRegFunc()));//instancia de recepcionista na GUI
+                lblReg.setText(recepcionista.getNome());
+                txtNQuarto.setText(String.valueOf(registro.getQuarto().getNumero()));
+                ftxDataE.setText(String.valueOf(registro.getDataEntrada()));
+                ftxDataS.setText(String.valueOf(registro.getDataSaida()));
+
+                txtReg.setEnabled(false);
+                ftxCPF.setEnabled(true);
+                btnPesquisaReg.setEnabled(false);
+                btnPesquisaCPF.setEnabled(true);
+            }
+        }catch(NumberFormatException e){
+                JOptionPane.showMessageDialog(this, 
+                "Registro invalido! Informe um valor numérico inteiro.",
+                "Erro de entrada", JOptionPane.ERROR_MESSAGE);
+                txtCodigo.requestFocus();
+                return;
+         }
 
     }//GEN-LAST:event_btnPesquisaRegActionPerformed
 
     private void btnPesquisaCPFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisaCPFActionPerformed
-        String cpfGui;
+        hospede = new DaoHospede(prepcon.abrirConexao()).consultar((txtCodigo.getText()));
         
-        cpfGui = lblCPF.getText();
-        
-        hospede = daoRegistro.consultar(Integer.parseInt(
-                txtCodigo.getText())).getHospede();
-        
-        if(cpfGui != hospede.getCpf()){
-            //to_do try catch
-            lblCPF.setText("Hóspede não cadastrado");
+        try{
+            if(hospede == null){
+                JOptionPane.showConfirmDialog(this, "Hóspede não cadastrado!", 
+                        "Atencao", JOptionPane.WARNING_MESSAGE);
             
-            ftxCPF.setEnabled(true);
-            txtNQuarto.setEnabled(false);
-            btnPesquisaCPF.setEnabled(true);
-            btnPesquisaSituacao.setEnabled(false);
-        }else{
-            lblCPF.setText(hospede.getNome()); //instancia CPF na label
-            ftxCPF.setText(hospede.getCpf());
-            txtNQuarto.setText(String.valueOf(registro.getQuarto().getNumero()));
-            ftxDataE.setText(String.valueOf(registro.getDataEntrada()));
-            ftxDataS.setText(String.valueOf(registro.getDataSaida()));
+                lblCPF.setText("Hóspede não cadastrado");
             
-            ftxCPF.setEnabled(false);
-            txtNQuarto.setEnabled(true);
-            btnPesquisaCPF.setEnabled(false);
-            btnPesquisaSituacao.setEnabled(true);
+                ftxCPF.setEnabled(true);
+                txtNQuarto.setEnabled(false);
+                btnPesquisaCPF.setEnabled(true);
+                btnPesquisaSituacao.setEnabled(false);
+            }else{
+                lblCPF.setText(hospede.getNome()); //instancia CPF na label
+                ftxCPF.setText(hospede.getCpf());
+                txtNQuarto.setText(String.valueOf(registro.getQuarto().getNumero()));
+                ftxDataE.setText(String.valueOf(registro.getDataEntrada()));
+                ftxDataS.setText(String.valueOf(registro.getDataSaida()));
+
+                ftxCPF.setEnabled(false);
+                txtNQuarto.setEnabled(true);
+                btnPesquisaCPF.setEnabled(false);
+                btnPesquisaSituacao.setEnabled(true);
             
-        }
+                }
+            }catch(NumberFormatException e){
+                JOptionPane.showMessageDialog(this, 
+                "CPF invalido! Informe um valor de texto inteiro.",
+                "Erro de entrada", JOptionPane.ERROR_MESSAGE);
+                txtCodigo.requestFocus();
+                return;
+         }
+            
     }//GEN-LAST:event_btnPesquisaCPFActionPerformed
 
     private void btnPesquisaSituacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisaSituacaoActionPerformed
-        int nQuartoGui;
+        quarto = new DaoQuarto(prepcon.abrirConexao()).consultar(Integer.parseInt(txtCodigo.getText()));
         
-        nQuartoGui = Integer.parseInt(txtNQuarto.getText());
-        
-        quarto = daoRegistro.consultar(Integer.parseInt(
-                txtCodigo.getText())).getQuarto();
-        
-        if(nQuartoGui != quarto.getNumero()){
-            //to_do try catch
-            lblSituacao.setText("Quarto não cadastrado");
+        try{
+            if(quarto == null){
+                JOptionPane.showConfirmDialog(this, "Quarto não cadastrado!", 
+                        "Atencao", JOptionPane.WARNING_MESSAGE);
             
-            txtNQuarto.setEnabled(true);
-            ftxDataE.setEnabled(false);
-            ftxDataS.setEnabled(false);
-            btnReservar.setEnabled(false);
-            btnLiberar.setEnabled(false);
-            
-        }else{
-            if(!quarto.getSituacao()){ //false está livre
-                lblSituacao.setText("Quarto livre!");
-                ftxDataE.setEnabled(true);
-                ftxDataS.setEnabled(false);
-                btnReservar.setEnabled(true);
-                btnLiberar.setEnabled(false);
-            
-            }else{ //está reservado
-                lblSituacao.setText("Quarto reservado!");
-                
+                lblSituacao.setText("Quarto não cadastrado");
+
                 txtNQuarto.setEnabled(true);
                 ftxDataE.setEnabled(false);
-                ftxDataS.setEnabled(true);
+                ftxDataS.setEnabled(false);
                 btnReservar.setEnabled(false);
-                btnLiberar.setEnabled(true);
+                btnLiberar.setEnabled(false);
             
+            }else{
+                if(!quarto.getSituacao()){ //false está livre
+                    lblSituacao.setText("Quarto livre!");
+                    ftxDataE.setEnabled(true);
+                    ftxDataS.setEnabled(false);
+                    btnReservar.setEnabled(true);
+                    btnLiberar.setEnabled(false);
+
+                }else{ //está reservado
+                    lblSituacao.setText("Quarto reservado!");
+
+                    txtNQuarto.setEnabled(true);
+                    ftxDataE.setEnabled(false);
+                    ftxDataS.setEnabled(true);
+                    btnReservar.setEnabled(false);
+                    btnLiberar.setEnabled(true);
+
+                }
             }
-        }
-        
-        
+            }catch(NumberFormatException e){
+                JOptionPane.showMessageDialog(this, 
+                "Quarto invalido! Informe um valor numérico inteiro.",
+                "Erro de entrada", JOptionPane.ERROR_MESSAGE);
+                txtCodigo.requestFocus();
+                return;
+         }
+
     }//GEN-LAST:event_btnPesquisaSituacaoActionPerformed
 
     /**

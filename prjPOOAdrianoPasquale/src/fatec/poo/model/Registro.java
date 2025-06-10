@@ -38,23 +38,11 @@ public class Registro {
     public double getValorHospedagem() {
         return valorHospedagem;
     }
+    
 
     public LocalDate getDataSaida() {
         return dataSaida;
     }
-
-    public Recepcionista getRecepcionista() {
-        return recepcionista;
-    }
-
-    public Hospede getHospede() {
-        return hospede;
-    }
-
-    public Quarto getQuarto() {
-        return quarto;
-    }
-    
 
     public void setDataSaida(LocalDate dataSaida) {
         this.dataSaida = dataSaida;

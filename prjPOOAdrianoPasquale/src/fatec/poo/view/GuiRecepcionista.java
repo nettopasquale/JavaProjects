@@ -231,225 +231,30 @@ public class GuiRecepcionista extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirActionPerformed
-        int regFunc = Integer.parseInt(txtReg.getText());
+        recepcionista = new Recepcionista(txtNome.getText(), 
+                Integer.parseInt(txtReg.getText()));
         
-        if (txtNome.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, 
-                    "Nome deve ser informado.", 
-                    "Atenção", JOptionPane.WARNING_MESSAGE);
-            txtNome.requestFocus();
-            return;
-        }
-        // Será que devo fazer mais validações de campos?
-
-        recepcionista = new Recepcionista(txtNome.getText(),regFunc);
         recepcionista.setEndereco(txtEndereco.getText());
         recepcionista.setTelefone(txtTelefone.getText());
         
-        if (rbtManha.isSelected()) {
+        if(rbtManha.isSelected()){
             recepcionista.setTurno("M");
-        } else if (rbtTarde.isSelected()) {
+        }else if(rbtTarde.isSelected()){
             recepcionista.setTurno("T");
-        } else if (rbtNoite.isSelected()) {
+        }else{
             recepcionista.setTurno("N");
-        } else {
-            JOptionPane.showMessageDialog(this, 
-                    "Selecione um turno.", 
-                    "Atenção", JOptionPane.WARNING_MESSAGE);
-            return;
         }
         
+        //estabelecer associação binária bidirecional com Registro?
+        //Caso sim add lógica aqui
+        
         daoRecepcionista.inserir(recepcionista);
-        JOptionPane.showMessageDialog(this, 
-                "Recepcionista inserido(a) com sucesso!", 
-                "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-
-        txtReg.setText("");
-        txtNome.setText("");
-        txtEndereco.setText("");
-        txtTelefone.setText("");
+        
+        txtReg.setText(null);
+        txtNome.setText(null);
+        txtEndereco.setText(null);
+        txtTelefone.setText(null);
         rbtManha.setSelected(true);
-
-        txtReg.setEnabled(true);
-        txtNome.setEnabled(false);
-        txtEndereco.setEnabled(false);
-        txtTelefone.setEnabled(false);
-        rbtManha.setEnabled(false);
-        rbtTarde.setEnabled(false);
-        rbtNoite.setEnabled(false); 
-
-        btnConsultar.setEnabled(true);
-        btnInserir.setEnabled(false);
-        btnAlterar.setEnabled(false);
-        btnExcluir.setEnabled(false);
-        txtReg.requestFocus();
-        recepcionista = null;
-    }//GEN-LAST:event_btnInserirActionPerformed
-
-    private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
-        int regFunc;
-        try {
-            if (txtReg.getText().trim().isEmpty()){
-                JOptionPane.showMessageDialog(this, 
-                        "Registro Funcional deve ser informado.", 
-                        "Atenção", JOptionPane.WARNING_MESSAGE);
-                txtReg.requestFocus();
-                return;
-            }
-            regFunc = Integer.parseInt(txtReg.getText());
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, 
-                    "Registro Funcional inválido! Informe um valor numérico inteiro.", 
-                    "Erro de Entrada", JOptionPane.ERROR_MESSAGE);
-            txtReg.requestFocus();
-            return;
-        }
-
-        recepcionista = daoRecepcionista.consultar(regFunc);
-
-        if (recepcionista != null) {
-            txtNome.setText(recepcionista.getNome());
-            txtEndereco.setText(recepcionista.getEndereco());
-            txtTelefone.setText(recepcionista.getTelefone());
-            
-            String turno = recepcionista.getTurno();
-            
-            if (turno != null) {
-                switch (turno) {
-                    case "M":
-                        rbtManha.setSelected(true);
-                        break;
-                    case "T":
-                        rbtTarde.setSelected(true); 
-                        break;
-                    case "N":
-                        rbtNoite.setSelected(true);
-                        break;
-                    default:
-                        break;
-                }
-            }
-            
-            txtReg.setEnabled(false);
-            txtNome.setEnabled(true);
-            txtEndereco.setEnabled(true);
-            txtTelefone.setEnabled(true);
-            rbtManha.setEnabled(true);
-            rbtTarde.setEnabled(true);
-            rbtNoite.setEnabled(true); 
-
-            btnConsultar.setEnabled(false);
-            btnInserir.setEnabled(false);
-            btnAlterar.setEnabled(true);
-            btnExcluir.setEnabled(true);
-            txtNome.requestFocus();
-        } else { 
-            JOptionPane.showMessageDialog(this, 
-                    "Recepcionista não cadastrado(a). Prossiga com a inserção.", 
-                    "Informação", JOptionPane.INFORMATION_MESSAGE);
-            txtNome.setText("");
-            txtEndereco.setText("");
-            txtTelefone.setText("");
-            rbtManha.setSelected(true);
-
-            txtReg.setEnabled(false);
-            txtNome.setEnabled(true);
-            txtEndereco.setEnabled(true);
-            txtTelefone.setEnabled(true);
-            rbtManha.setEnabled(true);
-            rbtTarde.setEnabled(true);
-            rbtNoite.setEnabled(true); 
-
-            btnConsultar.setEnabled(false);
-            btnInserir.setEnabled(true);
-            btnAlterar.setEnabled(false);
-            btnExcluir.setEnabled(false);
-            txtNome.requestFocus();
-        }
-    }//GEN-LAST:event_btnConsultarActionPerformed
-
-    private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
-        dispose();
-    }//GEN-LAST:event_btnSairActionPerformed
-
-    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-         if (JOptionPane.showConfirmDialog(null, 
-                 "Confirma Exclusão do Recepcionista?") == 0) {
-            daoRecepcionista.excluir(recepcionista);
-            JOptionPane.showMessageDialog(this, 
-                    "Recepcionista excluído(a) com sucesso!", 
-                    "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-
-            txtReg.setText("");
-            txtNome.setText("");
-            txtEndereco.setText("");
-            txtTelefone.setText("");
-            rbtManha.setSelected(true);
-
-            txtReg.setEnabled(true);
-            txtNome.setEnabled(false);
-            txtEndereco.setEnabled(false);
-            txtTelefone.setEnabled(false);
-            rbtManha.setEnabled(false);
-            rbtTarde.setEnabled(false);
-            rbtNoite.setEnabled(false); 
-
-            btnConsultar.setEnabled(true);
-            btnInserir.setEnabled(false);
-            btnAlterar.setEnabled(false);
-            btnExcluir.setEnabled(false);
-            txtReg.requestFocus();
-            recepcionista = null;
-        }
-
-    }//GEN-LAST:event_btnExcluirActionPerformed
-
-    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
-        if (JOptionPane.showConfirmDialog(null, 
-                "Confirma Alteração dos Dados do Recepcionista?") == 0) {
-            int regFuncOriginal = this.recepcionista.getRegFunc();
-            String novoNome = txtNome.getText();
-            String novoEndereco = txtEndereco.getText();
-            String novoTelefone = txtTelefone.getText();
-            String novoTurno;
-            
-            if (novoNome.trim().isEmpty()) {
-                JOptionPane.showMessageDialog(this, 
-                        "O nome não pode estar vazio.", 
-                        "Erro de Entrada", JOptionPane.ERROR_MESSAGE);
-                txtNome.requestFocus();
-                return;
-            }
-
-            if (rbtManha.isSelected()) novoTurno = "M";
-            else if (rbtTarde.isSelected()) novoTurno = "T";
-            else if (rbtNoite.isSelected()) novoTurno = "N";
-            else {
-                JOptionPane.showMessageDialog(this, 
-                        "Selecione um turno.", "Atenção", 
-                        JOptionPane.WARNING_MESSAGE);
-                jPanel1.requestFocus();
-                return;
-            }
-            
-            recepcionista.setNome(novoNome);
-            recepcionista.setEndereco(novoEndereco);
-            recepcionista.setTelefone(novoTelefone);
-            recepcionista.setTurno(novoTurno);
-
-            daoRecepcionista.alterar(recepcionista);
-
-            JOptionPane.showMessageDialog(this, 
-                    "Dados do recepcionista alterados com sucesso!",
-                    "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-        }
-
-        txtReg.setText("");
-        txtNome.setText("");
-        txtEndereco.setText("");
-        txtTelefone.setText("");
-        rbtManha.setSelected(true);
-
         txtReg.setEnabled(true);
         txtNome.setEnabled(false);
         txtEndereco.setEnabled(false);
@@ -457,13 +262,143 @@ public class GuiRecepcionista extends javax.swing.JFrame {
         rbtManha.setEnabled(false);
         rbtTarde.setEnabled(false);
         rbtNoite.setEnabled(false);
-
+        txtReg.requestFocus();
+        
         btnConsultar.setEnabled(true);
         btnInserir.setEnabled(false);
         btnAlterar.setEnabled(false);
-        btnExcluir.setEnabled(false);
-        txtReg.requestFocus();
-        recepcionista = null;
+        btnExcluir .setEnabled(false);
+    }//GEN-LAST:event_btnInserirActionPerformed
+
+    private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
+       recepcionista = null;
+       try{
+        recepcionista = daoRecepcionista.consultar(Integer.parseInt(txtReg.getText()));
+
+        if(recepcionista == null){
+            txtReg.setEnabled(false);
+            txtNome.setEnabled(true);
+            txtEndereco.setEnabled(true);
+            txtTelefone.setEnabled(true);
+            rbtManha.setEnabled(true);
+            rbtTarde.setEnabled(false);
+            rbtNoite.setEnabled(false);
+            txtReg.requestFocus();
+
+            btnConsultar.setEnabled(false);
+            btnInserir.setEnabled(true);
+            btnAlterar.setEnabled(false);
+            btnExcluir.setEnabled(false);
+        }
+        else{
+            txtNome.setText(recepcionista.getNome());
+            txtEndereco.setText(recepcionista.getEndereco());
+            txtTelefone.setText(recepcionista.getTelefone());
+
+            if(recepcionista.getTurno().equals("M")){
+               rbtManha.setSelected(true);
+            }else if(recepcionista.getTurno().equals("T")){
+               rbtTarde.setSelected(true);
+            }else{
+               rbtNoite.setSelected(true);
+            }
+
+            txtReg.setEnabled(false);
+            txtNome.setEnabled(true);
+            txtEndereco.setEnabled(true);
+            txtTelefone.setEnabled(true);
+            rbtManha.setEnabled(true);
+            rbtTarde.setEnabled(true);
+            rbtNoite.setEnabled(true);
+            txtReg.requestFocus();
+
+            btnConsultar.setEnabled(false);
+            btnInserir.setEnabled(false);
+            btnAlterar.setEnabled(true);
+            btnExcluir.setEnabled(true);
+
+        }
+       
+       }
+       catch(NumberFormatException ex){
+           System.out.println(ex.toString());
+       }
+    }//GEN-LAST:event_btnConsultarActionPerformed
+
+    private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
+        dispose();
+    }//GEN-LAST:event_btnSairActionPerformed
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        if(JOptionPane.showConfirmDialog(null, "Confirma Exclusão?") ==0 ){
+            daoRecepcionista.excluir(recepcionista);
+            //associação binária com registro?
+            //se sim add aqui
+        }
+           txtReg.setText(null);
+           txtNome.setText(null);
+           txtEndereco.setText(null);
+           txtTelefone.setText(null);
+           rbtManha.setEnabled(true);
+           rbtTarde.setEnabled(false);
+           rbtNoite.setEnabled(false);
+           txtReg.setEnabled(true);
+           txtNome.setEnabled(false);
+           txtEndereco.setEnabled(false);
+           txtTelefone.setEnabled(false);
+           rbtManha.setEnabled(false);
+           rbtTarde.setEnabled(false);
+           rbtNoite.setEnabled(false);
+           txtReg.requestFocus();
+           
+           btnConsultar.setEnabled(true);
+           btnInserir.setEnabled(false);
+           btnAlterar.setEnabled(false);
+           btnExcluir.setEnabled(false);
+        
+
+    }//GEN-LAST:event_btnExcluirActionPerformed
+
+    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+        if(JOptionPane.showConfirmDialog(null, "Confirma Alteração?") == 0){
+            //devo criar setNome em Pessoa?
+            //se sim, add setNome aqui;
+            recepcionista.setEndereco(txtEndereco.getText());
+            recepcionista.setTelefone(txtTelefone.getText());
+            
+            if(rbtManha.isSelected()){
+                recepcionista.setTurno("M");
+            }else if(rbtTarde.isSelected()){
+                recepcionista.setTurno("T");
+            }else{
+                recepcionista.setTurno("N");
+            }
+            
+            //Associação binária bidirecional com Registro?
+            //Se sim colocar aqui
+            
+            daoRecepcionista.alterar(recepcionista);
+        }
+           txtReg.setText(null);
+           txtNome.setText(null);
+           txtEndereco.setText(null);
+           txtTelefone.setText(null);
+           rbtManha.setEnabled(true);
+           rbtTarde.setEnabled(false);
+           rbtNoite.setEnabled(false);
+           txtReg.setEnabled(true);
+           txtNome.setEnabled(false);
+           txtEndereco.setEnabled(false);
+           txtTelefone.setEnabled(false);
+           rbtManha.setEnabled(false);
+           rbtTarde.setEnabled(false);
+           rbtNoite.setEnabled(false);
+           txtReg.requestFocus();
+           
+           btnConsultar.setEnabled(true);
+           btnInserir.setEnabled(false);
+           btnAlterar.setEnabled(false);
+           btnExcluir.setEnabled(false);
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
@@ -471,23 +406,6 @@ public class GuiRecepcionista extends javax.swing.JFrame {
         prepCon.setDriver("oracle.jdbc.driver.OracleDriver");
         prepCon.setConnectionString("jdbc:oracle:thin:@192.168.1.6:1521:xe");
         daoRecepcionista = new DaoRecepcionista(prepCon.abrirConexao());
-        
-       txtReg.setEnabled(true);
-       txtNome.setEnabled(false);
-       txtEndereco.setEnabled(false);
-       txtTelefone.setEnabled(false);
-       rbtManha.setEnabled(false);
-       rbtTarde.setEnabled(false);
-       rbtNoite.setEnabled(false);
-
-       btnConsultar.setEnabled(btnConsultar.isEnabled());
-       btnInserir.setEnabled(false);
-       btnAlterar.setEnabled(false);
-       btnExcluir.setEnabled(false);
-       btnSair.setEnabled(true);
-       
-       rbtManha.setSelected(true);
-       txtReg.requestFocus();        
         
         //daoRecepcionista
     }//GEN-LAST:event_formWindowOpened
@@ -534,7 +452,7 @@ public class GuiRecepcionista extends javax.swing.JFrame {
     private PreparaConexao prepCon=null;
     private Recepcionista recepcionista = null;
     private DaoRecepcionista daoRecepcionista =null;
-
+    //private ArrayList<Registro> registros;
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterar;
