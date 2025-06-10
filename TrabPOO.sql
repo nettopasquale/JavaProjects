@@ -34,10 +34,24 @@ create table tblRegistro(
     DataEntrada_Registro date,
     DataSaida_Registro date,
     Recepcionista_Registro number(4,0),
+    Hospede_Registro varchar2(11),
+    Quarto_Registro number(4,0),
     ValorHospedagem_Registro number(6,2)
 );
 
+drop table tblRegistro;
 select * from tblRegistro;
+
+ALTER TABLE tblRegistro ADD Recepcionista_Registro number(4,0);
 ALTER TABLE tblRegistro ADD CONSTRAINT fk_recepcionista 
 FOREIGN KEY(Recepcionista_Registro)REFERENCES tblRecepcionista(RegFunc_Recep);
+
+ALTER TABLE tblRegistro ADD Hospede_Registro varchar2(11);
+ALTER TABLE tblRegistro ADD CONSTRAINT fk_hospede 
+FOREIGN KEY(Hospede_Registro)REFERENCES tblHospede(Cpf_Hospede);
+
+ALTER TABLE tblRegistro ADD Quarto_Registro number(4,0);
+ALTER TABLE tblRegistro ADD CONSTRAINT fk_quarto 
+FOREIGN KEY(Quarto_Registro)REFERENCES tblQuarto(Numero_Quarto);
+
 
