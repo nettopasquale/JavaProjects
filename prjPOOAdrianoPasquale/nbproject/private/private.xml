@@ -3,11 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/E:/PasqualeHD/Java/prjPOOAdrianoPasquale/src/fatec/poo/view/GuiRecepcionista.java</file>
-            <file>file:/E:/PasqualeHD/Java/prjPOOAdrianoPasquale/src/fatec/poo/view/GuiServicoQuarto.java</file>
-            <file>file:/E:/PasqualeHD/Java/prjPOOAdrianoPasquale/src/fatec/poo/view/GuiCadastroQuarto.java</file>
-            <file>file:/E:/PasqualeHD/Java/prjPOOAdrianoPasquale/src/fatec/poo/view/GuiHospede.java</file>
-            <file>file:/E:/PasqualeHD/Java/prjPOOAdrianoPasquale/src/fatec/poo/view/GuiHotelMenu.java</file>
+            <file>file:/E:/PasqualeHD/Java/prjPOOAdrianoPasquale/src/fatec/poo/model/Recepcionista.java</file>
+            <file>file:/E:/PasqualeHD/Java/prjPOOAdrianoPasquale/src/fatec/poo/control/DaoRegistro.java</file>
+            <file>file:/E:/PasqualeHD/Java/prjPOOAdrianoPasquale/src/fatec/poo/model/Registro.java</file>
+            <file>file:/E:/PasqualeHD/Java/prjPOOAdrianoPasquale/src/fatec/poo/control/DaoRecepcionista.java</file>
+            <file>file:/E:/PasqualeHD/Java/prjPOOAdrianoPasquale/src/fatec/poo/view/GuiRegistro.java</file>
         </group>
     </open-files>
 </project-private>

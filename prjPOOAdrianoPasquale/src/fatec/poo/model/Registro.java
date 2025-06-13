@@ -38,7 +38,22 @@ public class Registro {
     public double getValorHospedagem() {
         return valorHospedagem;
     }
-    
+
+    public Recepcionista getRecepcionista() {
+        return recepcionista;
+    }
+
+    public Hospede getHospede() {
+        return hospede;
+    }
+
+    public Quarto getQuarto() {
+        return quarto;
+    }
+
+    public ArrayList<ServicoQuarto> getServicosQuarto() {
+        return servicosQuarto;
+    }
 
     public LocalDate getDataSaida() {
         return dataSaida;
