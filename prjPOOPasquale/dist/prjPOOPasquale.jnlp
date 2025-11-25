@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="prjPOOPasquale.jnlp">
+  <information>
+    <title>prjPOOPasquale</title>
+    <vendor>Pasquale</vendor>
+    <description>null</description>
+    <offline-allowed/>
+  </information>
+  <resources>
+    <j2se version="1.6+" java-vm-args="-Dprism.allowhidpi=true "  href="http://java.sun.com/products/autodl/j2se"/>
+    <jar href="lib\ojdbc6_g.jar" size="4494956" download="eager" />
+    <jar href="prjPOOPasquale.jar" size="91461" download="eager" />
+  </resources>
+  <application-desc main-class="fatec.poo.view.GuiMenu"  name="prjPOOPasquale" >
+  </application-desc>
+  <update check="always"/>
+</jnlp>
